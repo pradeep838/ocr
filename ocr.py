@@ -24,25 +24,18 @@ import pyautogui as pa
 
 # img_rgb = cv2.imread('MediaRoom.png')
 # print(type(img_rgb))
-def getCordinate():
+def getFullScreenImage():
     pa.PAUSE=2
     myScreenshot = pa.screenshot()
     myScreenshot=np.asarray(myScreenshot)
     return myScreenshot
 
-    # Read the main image
-    # img_rgb = myScreenshot
-    # # myScreenshot.save(r'')
-
-    # # Convert it to grayscale
-    # img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-
 
 def getAllText(for_text,iteration):
     # import cv2
-    # img = cv2.imread(getCordinate())
+    # img = cv2.imread(getFullScreenImage())
     custom_config = '--oem 3 --psm '+str(13-iteration)
-    img = getCordinate()
+    img = getFullScreenImage()
     print(custom_config)
     d = pytesseract.image_to_data(img,lang='eng', output_type=Output.DICT,config=custom_config)
     # return d   #return all text container
@@ -56,7 +49,7 @@ def getAllText(for_text,iteration):
             # print(d['text'][i],(x, y, w, h))
             # cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,0.7,(0,255,0),1,cv2.LINE_AA)
-    cv2.imwrite("demo/demo"+for_text+str(iteration)+".png",img)
+    # cv2.imwrite("demo/demo"+for_text+str(iteration)+".png",img)
     # cv2.imshow('img', img)
     # cv2.waitKey(0)
 
@@ -77,10 +70,26 @@ def findTextLocaiton(btn_name,retrycount):
     if(retrycount>=2): 
         print(container['text'])
     text_index=-1
+    exact_match=False
+    btn_containers=btn_name.split(' ')
+    
     for i in range(n_boxes):
-        if container['text'][i]==btn_name:
+        if container['text'][i]==btn_containers[0]:
             text_index=i
-            break
+            exact_match=True
+            # print(container['text'][i:i+15])
+            #starting from i+1 to btn_name.split(' ')[1] to end all strings should be same
+            for j in range(1,len(btn_containers)):
+                print(container['text'][i:i+len(btn_containers)])
+                if(container['text'][i+j]==btn_containers[j]):
+                    exact_match=exact_match & True
+                    print(btn_containers[j],j)
+                else:
+                    text_index=-1
+                    exact_match=False
+            if exact_match:
+                break
+            
     if text_index==-1:
         t=findTextLocaiton(btn_name,retrycount+1)
         if t==-500:
@@ -92,12 +101,67 @@ def findTextLocaiton(btn_name,retrycount):
     #index finding logic ends here.
     (x, y, w, h) = (container['left'][text_index], container['top'][text_index], container['width'][text_index], container['height'][text_index])
     return (x, y, w, h)
+
+all_location=[]
+counter=1
+def findAllTextLocaiton(btn_name,retrycount):
+    # print("clicking button {}".format(btn_name))
+    if retrycount==11:
+        return -500
+    # if retrycount>1:
+    #     print("Retrying another time for", btn_name)
+    container=getAllText(btn_name,retrycount)
+    n_boxes=len(container['level'])
+    #detect text index  in container.
+    # if(retrycount>=2): 
+    #     print(container['text'])
+    text_index=-1
+    exact_match=False
+    btn_containers=btn_name.split(' ')
+    
+    for i in range(n_boxes):
+        if container['text'][i]==btn_containers[0]:
+            text_index=i
+            exact_match=True
+            print('Match Found at location:',btn_name,(container['left'][text_index], container['top'][text_index], container['width'][text_index], container['height'][text_index]))
+
+            print(container['text'][i:i+15])
+            #starting from i+1 to btn_name.split(' ')[1] to end all strings should be same
+            for j in range(1,len(btn_containers)):
+                print(container['text'][i:i+len(btn_containers)])
+                if(container['text'][i+j]==btn_containers[j]):
+                    exact_match=exact_match & True
+                    print(btn_containers[j],j)
+                else:
+                    text_index=-1
+                    exact_match=False
+            if exact_match:
+                global all_location
+                print('adding location for',btn_name,(container['left'][text_index], container['top'][text_index], container['width'][text_index], container['height'][text_index]))
+                all_location.append((container['left'][text_index], container['top'][text_index], container['width'][text_index], container['height'][text_index]))
+                exact_match=False
+
+    findAllTextLocaiton(btn_name,retrycount+1)
+            
+    # if text_index==-1:
+    #     t=findAllTextLocaiton(btn_name,retrycount+1)
+    #     if t==-500:
+    #         message="text not detected {}".format(btn_name)
+    #         print(message)
+    #         raise(message)
+    #     (x, y, w, h)=t
+    #     return  (x, y, w, h)
+    # #index finding logic ends here.
+    # (x, y, w, h) = (container['left'][text_index], container['top'][text_index], container['width'][text_index], container['height'][text_index])
+    # return (x, y, w, h)
     
 dummy_text=['Import','Media','Events',"People","Places","Share","Create",'Folders','projects','Raw','themes','Search','Grid']
 dummy_text=['Import',"Fle",'Manage','New']
 dummy_text=['Rotate','PNG','OK']
 dummy_text=['General','Tags','information','Curate']
-dummy_text=['Upload','Upload',]
+dummy_text=['File','Rename...']
+dummy_text=['View','Full Screen']
+dummy_text=['People','UnNamed','Add Name (15)']
 pa.PAUSE=10
 for i in dummy_text:
     (x, y, w, h)= findTextLocaiton(i,0)
@@ -107,16 +171,101 @@ for i in dummy_text:
     pa.PAUSE=1
 
 pa.PAUSE=3
-# pa.typewrite("automation_catalog1check")
+pa.typewrite("roshan")
+pa.press('Enter')
 
-dummy_text=[]
-pa.PAUSE=10
-for i in dummy_text:
-    (x, y, w, h)= findTextLocaiton(i,0)
-    pa.moveTo(x+(w/2),y+(h/2))
-    pa.PAUSE=1
+dummy_text=['Named','roshan','Media']
+dummy_text=['Import','From Files and Folders.']
+# pa.PAUSE=10
+# for i in dummy_text:
+#     (x, y, w, h)= findTextLocaiton(i,0)
+#     pa.moveTo(x+(w/2),y+(h/2))
+#     pa.PAUSE=1
+#     pa.click()
+#     pa.PAUSE=1
+# pa.PAUSE=10
+
+
+# pa.typewrite(r"C:\Users\kumarp\Downloads\pse new catalog m1 fra.mov")
+
+# dummy_text=['FinalTest']
+# for i in dummy_text:
+#     (x, y, w, h)= findTextLocaiton(i,0)
+#     pa.moveTo(x+(w/2),y+(h/2))
+#     pa.PAUSE=1
+#     pa.click()
+#     pa.PAUSE=10
+
+def getCenterOfScreen():
+    (x,y)=pa.size()
+    return (x/2,y/2)
+    
+    
+
+def selectMedia():
+    (center_x,center_y)=getCenterOfScreen()
+    pa.moveTo(getCenterOfScreen())
     pa.click()
-    pa.PAUSE=1
+
+    dummy_text=['information']
+    for i in dummy_text:
+        (x, y, w, h)= findTextLocaiton(i,0)
+        pa.moveTo(x+(w/2),y+(h/2))
+        pa.click()
+    file_name=getNameOfFile()
+    # check width and height of thumbnail:
+    w=16
+    h=8
+    while(file_name==getNameOfFile()):
+        w+=8
+        print("moving mouse",center_x+w,center_y)
+        # pa.move(center_x+w,center_y)
+        pa.click(center_x+w,center_y)
+        print(getNameOfFile())
+    
+    w=120
+    pa.PAUSE=3
+
+    pa.hotkey('ctrl','2')
+    pa.keyDown('ctrl')
+    for i in range(3):
+        center_x+=w
+        pa.moveTo(center_x,center_y)
+        pa.PAUSE=1
+        pa.click()
+        pa.PAUSE=5
+    # pa.hotkey('ctrl','2')
+    pa.click(button='right')
+
+
+
+
+    
+       
+    
+
+def getNameOfFile():
+    dummy_text=['Name:']
+    for i in dummy_text:
+        (x, y, w, h)= findTextLocaiton(i,0)
+        pa.moveTo(x+(w)+90,y+(h/2))
+        pa.PAUSE=0.005
+        pa.click()
+        pa.PAUSE=0.005
+        pa.hotkey('ctrl','a')
+        pa.PAUSE=0.005
+        pa.hotkey('ctrl','c')
+        return getClipBoardContent()
+
+
+def getClipBoardContent():
+      from tkinter import Tk  # Python 3
+        #from Tkinter import Tk # for Python 2.x
+      return(Tk().clipboard_get())
+    
+
+
+# selectMedia()
 
 # (x, y, w, h)= findTextLocaiton('Grid',0)
 # pa.moveTo(x+(w/2),y+(h/2))
@@ -124,4 +273,13 @@ for i in dummy_text:
 # pa.click()
 
 # getAllText()
+# findAllTextLocaiton('Upload',0)
+# print(all_location)
+# for i in all_location:
+#  (x,y,w,h)=i
+#  pa.moveTo(x+(w/2),y+(h/2))
+#  print("moved to locaation")
+#  pa.PAUSE=10
 
+# (1474, 751, 28, 12)]
+# (586, 972, 75, 11)
