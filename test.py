@@ -32,7 +32,6 @@ def getCordinate(template_location):
 
     # Store the coordinates of matched area in a numpy array
     loc = np.where(res >= threshold)
-    print(loc)
     # Draw a rectangle around the matched region.
     apt=False
     for pt in zip(*loc[::-1]):
@@ -71,7 +70,7 @@ def getCordinate(template_location):
 
 # pa.PAUSE=8
 
-apt=getCordinate('enter_name.png')
+apt=getCordinate('theme.png')
 pa.moveTo(apt[0],apt[1])
 pa.click()
 # while True:

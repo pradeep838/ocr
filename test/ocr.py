@@ -31,13 +31,17 @@ def getFullScreenImage():
     return myScreenshot
 
 
-def getAllText(for_text,iteration):
+def getAllText(for_text,iteration,image=None):
     # import cv2
     # img = cv2.imread(getFullScreenImage())
-    custom_config = '--oem 3 --psm '+str(13-iteration)
-    img = getFullScreenImage()
-    print(custom_config)
-    d = pytesseract.image_to_data(img,lang='eng', output_type=Output.DICT,config=custom_config)
+    # custom_config = '--oem 3 --psm '+str(13-iteration)+' -l eng -c tessedit_char_blacklist=[\\|@+~=£%'
+    custom_config = '--oem 3 --psm '+str(13-iteration)+' -l eng -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""'
+    if not image:
+        img = getFullScreenImage()
+    else:
+        img=image
+    # print(custom_config)
+    d = pytesseract.image_to_data(img, output_type=Output.DICT,config=custom_config)
     # return d   #return all text container
     n_boxes = len(d['level'])
     #debugging code here
@@ -48,13 +52,14 @@ def getAllText(for_text,iteration):
             (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
             # print(d['text'][i],(x, y, w, h))
             # cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,0.7,(0,255,0),1,cv2.LINE_AA)
-    # cv2.imwrite("demo/demo"+for_text+str(iteration)+".png",img)
-    # cv2.imshow('img', img)
-    # cv2.waitKey(0)
+            cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
+    if for_text=='New':
+        cv2.imwrite("demo/demo"+for_text+str(iteration)+".png",img)
+        cv2.imshow('img', img)
+        # print(d['text'])
+        cv2.waitKey(0)
 
     return d
-
 
 
 
@@ -74,9 +79,11 @@ def findTextLocaiton(btn_name,retrycount):
     btn_containers=btn_name.split(' ')
     
     for i in range(n_boxes):
-        if container['text'][i]==btn_containers[0]:
+        if container['text'][i]==btn_containers[0] or (btn_containers[0] in container['text'][i]):
+        # if container['text'][i]==btn_containers[0]:
             text_index=i
             exact_match=True
+            print(container['text'][i],btn_containers[0])
             # print(container['text'][i:i+15])
             #starting from i+1 to btn_name.split(' ')[1] to end all strings should be same
             for j in range(1,len(btn_containers)):
@@ -106,7 +113,7 @@ all_location=[]
 counter=1
 def findAllTextLocaiton(btn_name,retrycount):
     # print("clicking button {}".format(btn_name))
-    if retrycount==11:
+    if retrycount==13:
         return -500
     # if retrycount>1:
     #     print("Retrying another time for", btn_name)
@@ -155,27 +162,28 @@ def findAllTextLocaiton(btn_name,retrycount):
     # (x, y, w, h) = (container['left'][text_index], container['top'][text_index], container['width'][text_index], container['height'][text_index])
     # return (x, y, w, h)
     
-dummy_text=['Import','Media','Events',"People","Places","Share","Create",'Folders','projects','Raw','themes','Search','Grid']
-dummy_text=['Import',"Fle",'Manage','New']
-dummy_text=['Rotate','PNG','OK']
-dummy_text=['General','Tags','information','Curate']
-dummy_text=['File','Rename...']
-dummy_text=['View','Full Screen']
-dummy_text=['People','UnNamed','Add Name (15)']
-pa.PAUSE=10
-for i in dummy_text:
-    (x, y, w, h)= findTextLocaiton(i,0)
-    pa.moveTo(x+(w/2),y+(h/2))
-    pa.PAUSE=1
-    pa.click()
-    pa.PAUSE=1
+# dummy_text=['Import','Media','Events',"People","Places","Share","Create",'Folders','projects','Raw','themes','Search','Grid']
+# dummy_text=['Import',"Fle",'Manage','New']
+# dummy_text=['Rotate','PNG','OK']
+# dummy_text=['General','Tags','information','Curate']
+# dummy_text=['File','Rename...']
+# dummy_text=['View','Full Screen']
+# dummy_text=['People','UnNamed','Add Name (15)']
+# dummy_text=['Upload to Cloud']
+# pa.PAUSE=10
+# for i in dummy_text:
+#     (x, y, w, h)= findTextLocaiton(i,0)
+#     pa.moveTo(x+(w/2),y+(h/2))
+#     pa.PAUSE=1
+#     pa.click()
+#     pa.PAUSE=1
 
-pa.PAUSE=3
-pa.typewrite("roshan")
-pa.press('Enter')
+# pa.PAUSE=3
+# pa.typewrite("roshan")
+# pa.press('Enter')
 
-dummy_text=['Named','roshan','Media']
-dummy_text=['Import','From Files and Folders.']
+# dummy_text=['Named','roshan','Media']
+# dummy_text=['Import','From Files and Folders.']
 # pa.PAUSE=10
 # for i in dummy_text:
 #     (x, y, w, h)= findTextLocaiton(i,0)
@@ -186,20 +194,17 @@ dummy_text=['Import','From Files and Folders.']
 # pa.PAUSE=10
 
 
-# pa.typewrite(r"C:\Users\kumarp\Downloads\pse new catalog m1 fra.mov")
 
-# dummy_text=['FinalTest']
-# for i in dummy_text:
-#     (x, y, w, h)= findTextLocaiton(i,0)
-#     pa.moveTo(x+(w/2),y+(h/2))
-#     pa.PAUSE=1
-#     pa.click()
-#     pa.PAUSE=10
 
 def getCenterOfScreen():
     (x,y)=pa.size()
     return (x/2,y/2)
-    
+
+def clickCtenter():
+    pa.click(getCenterOfScreen())
+
+def moveToCenter():
+    pa.moveTo(getCenterOfScreen())
     
 
 def selectMedia():
@@ -264,22 +269,47 @@ def getClipBoardContent():
       return(Tk().clipboard_get())
     
 
+def getCordinate(text):
+    (x, y, w, h)= findTextLocaiton(text,0)
+    return (x+(w/2),y+(h/2))
 
-# selectMedia()
+def clickCordinate(x,y):
+    pa.click(x,y)
 
-# (x, y, w, h)= findTextLocaiton('Grid',0)
-# pa.moveTo(x+(w/2),y+(h/2))
-# pa.PAUSE=4
-# pa.click()
 
-# getAllText()
-# findAllTextLocaiton('Upload',0)
-# print(all_location)
-# for i in all_location:
-#  (x,y,w,h)=i
-#  pa.moveTo(x+(w/2),y+(h/2))
-#  print("moved to locaation")
-#  pa.PAUSE=10
+def perfromActionOnly_Click(dummy_text):
+    # dummy_text=[]
+    for i in dummy_text:
+        (x, y, w, h)= findTextLocaiton(i,0)
+        pa.moveTo(x+(w/2),y+(h/2))
+        pa.PAUSE=1
+        pa.click()
+        pa.PAUSE=1
 
-# (1474, 751, 28, 12)]
-# (586, 972, 75, 11)
+def enterText(text):
+    pa.typewrite(text)
+
+def sleep(time):
+    pa.PAUSE=time
+
+
+def FindLocation(text):
+    (x,y,w,h) = findTextLocaiton(text,0)
+    # Print image shape
+    # cv2.imshow("original", img)
+    print(x,y,w,h)
+    # Cropping an image
+
+    # cropped_image = getFullScreenImage()[y-h*5:y+h*5,x-w*5:x+w*5]
+    cropped_image = getFullScreenImage()[y-h*5:y+h*5,x:x+w]
+    # cv2.imshow("cropped", cropped_image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    for i in range(12):
+        # custom_config = '--oem 3 --psm '+str(13-i)+' -l eng -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""'
+        # d = pytesseract.image_to_data(cropped_image, output_type=Output.DICT,config=custom_config)
+        # print(d['text'])
+   
+
+
+FindLocation('Convert')
