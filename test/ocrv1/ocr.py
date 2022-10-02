@@ -53,11 +53,11 @@ def getAllText(for_text,iteration,image=None):
             # print(d['text'][i],(x, y, w, h))
             # cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
-    if for_text=='New':
-        cv2.imwrite("demo/demo"+for_text+str(iteration)+".png",img)
-        cv2.imshow('img', img)
-        # print(d['text'])
-        cv2.waitKey(0)
+    # if for_text=='New':
+    #     cv2.imwrite("demo/demo"+for_text+str(iteration)+".png",img)
+    #     cv2.imshow('img', img)
+    #     # print(d['text'])
+    #     cv2.waitKey(0)
 
     return d
 
@@ -309,7 +309,4 @@ def FindLocation(text):
         # custom_config = '--oem 3 --psm '+str(13-i)+' -l eng -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""'
         # d = pytesseract.image_to_data(cropped_image, output_type=Output.DICT,config=custom_config)
         # print(d['text'])
-   
-
-
-FindLocation('Convert')
+        pass

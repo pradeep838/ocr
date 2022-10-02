@@ -1,5 +1,6 @@
 
 
+from threading import Thread
 import cv2,pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
@@ -8,10 +9,10 @@ import numpy as np
 import pyautogui as pa
 
 def writelog(text):
-    with open('./temp.txt','w') as f:
+    with open('./temp.txt','a') as f:
         f.write(text)
 
-MIN_PSM=2
+MIN_PSM=3
 MAX_PSM=11
 
 def log(msg1,msg):
@@ -20,7 +21,7 @@ def log(msg1,msg):
 
 #return current screenshot bytes
 def getFullScreenImage():
-    pa.PAUSE=5
+    pa.PAUSE=2
     myScreenshot = pa.screenshot()
     myScreenshot=np.asarray(myScreenshot)
     return myScreenshot
@@ -33,7 +34,7 @@ def check_text(text):
         return True
 
 #psm_value =(>3,<13)
-def getAllText(img,psm_value=7,searching_text='current_'):
+def getAllText(img,psm_value=5,searching_text='current_'):
     custom_config = '--oem 3 --psm '+str(psm_value)+' -l eng -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""'
     log('config applying to testrect',custom_config)
     d = pytesseract.image_to_data(img, output_type=Output.DICT,config=custom_config)
@@ -44,9 +45,9 @@ def getAllText(img,psm_value=7,searching_text='current_'):
         if(check_text(d['text'][i])):
             if all_text_container.get(d['text'][i])==None:
                 all_text_container[d['text'][i]]=set()
-                all_text_container[d['text'][i]].add((x,y,w,h))
+                all_text_container[d['text'][i]].add((x,y,w,h,psm_value))
             else:
-                all_text_container[d['text'][i]].add((x,y,w,h))
+                all_text_container[d['text'][i]].add((x,y,w,h,psm_value))
             log(d['text'][i],(x, y, w, h))
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
@@ -55,6 +56,7 @@ def getAllText(img,psm_value=7,searching_text='current_'):
     if save_flag:
         saveImage("demo/demo"+searching_text+'psm'+str(psm_value)+".png",img)
         # showImage(searching_text,img)
+    writelog(str(all_text_container))
     return all_text_container
 
 def saveImage(img_name,img):
@@ -74,9 +76,9 @@ def getAllPossibleTextLocation(text_to_be_searched):
     # img=cv2.imread('slideshow.png')
     img=getFullScreenImage()
     all_text_for_all_psm_value={}
-    for i in range(MIN_PSM,MAX_PSM):
+    for psm in range(MIN_PSM,MAX_PSM):
         # print(i)
-        all_text_for_all_psm_value[i]=getCordinatesOfAllText(img,i,text_to_be_searched)
+        all_text_for_all_psm_value[psm]=getCordinatesOfAllText(img,psm,text_to_be_searched)
         # if all_text_for_all_psm_value[i].get(text_to_be_searched)==None:
         #     # print("text not found",text_to_be_searched)
         #     pass
@@ -293,15 +295,25 @@ def perfomClickOnText(text):
 
 # perfromClickOn(['Places','Media','People'])
 sleep(25)
+
 # perfromClickOn(['Events','File','Manage Catalogs...','New'])
 # enterText('automationsebana')
 # perfromClickOn(['File'])
-perfomClickOnText('Places')
-perfomClickOnText('Media')
-perfomClickOnText('File')
-perfomClickOnText('Manage Catalogs...')
-perfomClickOnText('New')
+# perfomClickOnText('Places')
+# perfomClickOnText('Media')
+# perfomClickOnText('File')
+# perfomClickOnText('Manage Catalogs...')
+# perfomClickOnText('New')
+# writelog("\n--------------second time----------\n")
+# (getAllText(getFullScreenImage(),4))
+# print('ok')
+# sleep(30)
+# writelog("\n--------------second time----------\n")
+# (getAllText(getFullScreenImage(),4))
 
+for i in [6,11]:
+    writelog("\n-{}-------------second time----------\n".format(i))
+    (getAllText(getFullScreenImage(),i))
 
 
 

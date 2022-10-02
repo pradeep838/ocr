@@ -25,7 +25,7 @@ def test_sort_by_functionality_by_import_batch():
     pa.press('down')
     pa.press('Enter')
 
-# @pytest.mark.skip("in progress")
+@pytest.mark.skip("in progress")
 def test_create_new_catalog():
     catalog_name='oct_automation_catalog9'
     perfromActionOnly_Click(['Events','Fle','Manage Catalogs...','New'])
@@ -35,7 +35,6 @@ def test_create_new_catalog():
     perfromActionOnly_Click(['skip'])
 
 
-test_create_new_catalog()
 @pytest.mark.skip("in progress")
 def test_import_media_in_Eo():
     file_name=r'C:\Users\kumarp\Downloads\TestData\automationData\dataset1'
@@ -69,7 +68,9 @@ def test_search():
     sleep(5)
     pa.press('Backspace')
 
-   
+# test_check_people_room_is_working()
+# pa.hotkey()
+test_import_media_in_Eo()
     
 
 
