@@ -8,13 +8,15 @@ import cv2,pytesseract
 from pytesseract import Output
 import numpy as np
 import pyautogui as pa
-from pixel import getClusterOfWordsWithInRectangle,getLocationMatrix
+# from pixel import getClusterOfWordsWithInRectangle,getLocationMatrix
+from pixel import getLocation
 
 pytesseract.pytesseract.tesseract_cmd = TESTRECT_EXE
 
-def writelog(text):
-    with open('./temp.txt','w') as f:
+def writelog(text,fileName):
+    with open('./'+fileName+'.txt','w') as f:
         f.write(text)
+    pass
 
 MIN_PSM=3
 MAX_PSM=11
@@ -40,6 +42,7 @@ def check_text(text):
 
 #psm_value =(>3,<13)
 def getAllText(img,psm_value=5,searching_text='current_'):
+    save_flag=True
     custom_config = '--oem 3 --psm '+str(psm_value)+' -l eng -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""'
     log('config applying to testrect',custom_config)
     d = pytesseract.image_to_data(img, output_type=Output.DICT,config=custom_config)
@@ -54,14 +57,16 @@ def getAllText(img,psm_value=5,searching_text='current_'):
             # else:
             #     all_text_container[d['text'][i]].add((x,y,w,h))
             log(d['text'][i],(x, y, w, h))
+            # if save_flag & (d['text'][i]==searching_text):
+            #     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            #     cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
     
-    save_flag=False
     if save_flag:
-        saveImage("demo/demo"+searching_text+'psm'+str(psm_value)+".png",img)
+        saveImage("demo/"+searching_text+'psm'+str(psm_value)+".png",img)
         # showImage(searching_text,img)
-    writelog(str(all_text_container))
+    # writelog(str(all_text_container))
     return all_text_container
 
 def saveImage(img_name,img):
@@ -317,31 +322,106 @@ def perfomClickOnText(text):
 # writelog("\n--------------second time----------\n")
 # (getAllText(getFullScreenImage(),4))
 import sys
-text_to_be_searched=sys.argv[1:]
+text_to_be_searched= ['File',"Upload to Cloud","information","Create","Share","People","Places","Media","Events","Search"] #sys.argv[1:]
+text_to_be_searched=['Fle','Edit','View','Help','Find']
+text_to_be_searched=['Fle','Manage Catalogs...','New']
 print(text_to_be_searched)
 print("\n"*20)
 pa.alert("some alert text")
 import time
 
 time.sleep(5)
-for i in [11,6]:
-    writelog("\n-{}-------------second time----------\n".format(i))
-    for text in text_to_be_searched:
-        try:
-            all_text=getAllText(getFullScreenImage(),i)
-            pixel_matrix=getLocationMatrix(all_text)
-            all_text=getClusterOfWordsWithInRectangle(all_text[text],pixel_matrix)
-            # print(all_text)
-            # pa.moveTo(0,0,2,pa.easeOutQuad)
-            x=all_text[0][1]
-            y=all_text[0][2]
-            pa.moveTo(x, y)
-            # pa.moveTo(x, y, 2, pa.easeOutQuad)
-            # time.sleep(3)
-            pa.moveTo(10,10)
-            print(text,"---",i,"---","/")
-        except Exception:
-            print(text,"---",i,"---","X")
+# for i in [11]:
+#     print("\n-{}-------------second time----------\n".format(i))
+#     for text in text_to_be_searched:
+#         try:
+#             all_text=getAllText(getFullScreenImage(),i,text)
+#             # print(all_text.get('information'))
+#             # continue
+#             # pixel_matrix=getLocationMatrix(all_text)
+#             # all_text=getClusterOfWordsWithInRectangle(all_text[text],pixel_matrix)
+#             # print(all_text)
+#             # pa.moveTo(0,0,2,pa.easeOutQuad)
+#             # x=all_text[0][1]
+#             # y=all_text[0][2]
+#             val=getLocation(text,all_text)
+#             x=val[1]
+#             y=val[2]
+#             w=val[3]
+#             h=val[4]
+#             # pa.moveTo(x, y)
+#             if not text=='Fle':
+#                 center_x=x+(w/2)
+#             else:
+#                 center_x=x
+#             center_y= y+(h/2)
+#             pa.moveTo(center_x,center_y, 2, pa.easeOutQuad)
+#             time.sleep(1)
+#             pa.click(center_x,center_y)
+#             # pa.moveTo(10,10)
+#             print(text,"---",i,"---","/")
+#         except Exception:
+#             print(text,"---",i,"---","X")
+
+#Failure Code
+OCR_FAILURE_NOT_DETECTED_CURRENT_WORD=-1
+CLICK_ACTION_PERFROMED_SUCCESSFULLY=1
+SOME_EXCEPTION_OCCURED_IN_GETLOCATION=-2
+
+def clickOnTextUsingSpecifPSM(text,psm):
+    try:
+        all_text=getAllText(getFullScreenImage(),psm,text)
+        # print(all_text.get('information'))
+        # continue
+        # pixel_matrix=getLocationMatrix(all_text)
+        # all_text=getClusterOfWordsWithInRectangle(all_text[text],pixel_matrix)
+        # print(all_text)
+        # pa.moveTo(0,0,2,pa.easeOutQuad)
+        # x=all_text[0][1]
+        # y=all_text[0][2]
+        if all_text.get(text)==None:
+            print("OcR not detected...",text,"---",psm)
+            writelog(str(all_text),text)
+            return OCR_FAILURE_NOT_DETECTED_CURRENT_WORD
+        val=getLocation(text,all_text)
+        x=val[1]
+        y=val[2]
+        w=val[3]
+        h=val[4]
+        # pa.moveTo(x, y)
+        if not text=='Fle':
+            center_x=x+(w/2)
+        else:
+            center_x=x
+        center_y= y+(h/2)
+        pa.moveTo(center_x,center_y, 2, pa.easeOutQuad)
+        time.sleep(1)
+        pa.click(center_x,center_y)
+        # pa.moveTo(10,10)
+        print(text,"---",psm,"---","/")
+        return CLICK_ACTION_PERFROMED_SUCCESSFULLY
+    except Exception as e:
+        print(e)
+        print(text,"---",psm,"---","X")
+        return SOME_EXCEPTION_OCCURED_IN_GETLOCATION
+
+def clickOnText(text):
+    arr_psm=[11,6,3,7,8,5,4,9,10,1]
+    index=0
+    status=True
+    for psm in arr_psm:
+        status=clickOnTextUsingSpecifPSM(text,psm)
+        if status==CLICK_ACTION_PERFROMED_SUCCESSFULLY:break
+
+clickOnText('Fle')
+clickOnText("Exit")
+clickOnText("Skip")    
+
+
+
+
+
+
 
 
 
