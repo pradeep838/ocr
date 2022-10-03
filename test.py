@@ -70,8 +70,36 @@ def getCordinate(template_location):
 
 # pa.PAUSE=8
 
-apt=getCordinate('theme.png')
-pa.moveTo(apt[0],apt[1])
-pa.click()
+# apt=getCordinate('theme.png')
+# pa.moveTo(apt[0],apt[1])
+# pa.click()
 # while True:
 #     pass
+#----------------------------------------------------------------
+from mss import mss
+import cv2
+import pyautogui as pa
+import numpy as np
+sc=-1
+def screenShotMss():
+    from mss import mss
+    monitor = {"top": 0, "left": 0, "width": 1920, "height": 1080}
+    with mss() as sct:
+        screenshot = np.array(sct.grab(monitor))
+        screenshot = cv2.cvtColor(screenshot, cv2.COLOR_RGB2BGR)
+    return screenshot
+
+# with mss() as sct:
+#     monitor = {"top": 0, "left": 0, "width": 1920, "height": 1080}
+#     screenshot = np.array(sct.grab(monitor))
+#     screenshot = cv2.cvtColor(screenshot, cv2.COLOR_RGB2BGR)
+
+#     # screenshot = cv2.cvtColor(screenshot, cv2.COLOR_RGB2BGR)
+#     cv2.imshow('Computer Vision', screenshot)
+#     cv2.waitKey(0)
+    # print(type(sc))
+    # sc=np.asarray(sc)
+# if not sc==-1:
+#     cv2.imshow("pyauto",np.asarray(pa.screenshot()))
+#     cv2.imshow("mss",cv2.imread('monitor-1.png'))
+#     cv2.waitKey(0)

@@ -1,10 +1,7 @@
-from asyncore import write
-from enum import unique
-from typing import Container
 
 
 def writelog(text):
-    with open('./temp.txt','a') as f:
+    with open('./logs/temp.txt','a') as f:
         f.write(text)
         f.flush()
     # pass
@@ -115,47 +112,53 @@ def get_unique(container):
 
 def getLocation(string_of_text,ocr_extracted_dict):
     #checking for empty string
-    if(len(string_of_text)==0):
-        return
-    
-    splitted_text=string_of_text.split(" ")
-    # ocr_extracted_dict=pixellocationOfword   #getAllTextFunction()
-    pixel_matrix=getLocationMatrix(ocr_extracted_dict)
     container=[]
-    if len(splitted_text)==1:
-        if not ocr_extracted_dict.get(string_of_text)==None:
-            container=getClusterOfWordsWithInRectangle(ocr_extracted_dict[string_of_text],pixel_matrix)
-        else:
-            print("OCR reader could Not recognize the\t",string_of_text)
+    try:
+        if(len(string_of_text)==0):
             return
-    else:
-        container=getClusterOfMultipleWords(string_of_text,ocr_extracted_dict,pixel_matrix)
-        vertical_aligned_text_container=get_vertically_aligned_text(container)
-        unique_vertical_aligned_text_container=get_unique(vertical_aligned_text_container)
-        container=unique_vertical_aligned_text_container
-    writelog(string_of_text+"\n")
-    writelog(str(container))
-    writelog("- "*100)
-    if len(container)==1:
-            w=container[0][3]
-            h=container[0][4]
-            x=container[0][1]
-            y=container[0][2]
-            return  (string_of_text,x,y,w,h,{'cluster_of_word':container})
-    else:
-            w=container[-1][1]-container[0][1]
-            h=container[0][4]
-            x=container[0][1]
-            y=container[0][2]
-            return (string_of_text,x,y,w,h,{'cluster_of_word':container})
-    writelog(container)
-
-    # print(container)
-    
+        
+        splitted_text=string_of_text.split(" ")
+        # ocr_extracted_dict=pixellocationOfword   #getAllTextFunction()
+        pixel_matrix=getLocationMatrix(ocr_extracted_dict)
+        print("Debug: enter here14")
+        if len(splitted_text)==1:
+            if not ocr_extracted_dict.get(string_of_text)==None:
+                print("Debug: enter here12")
+                container=getClusterOfWordsWithInRectangle(ocr_extracted_dict[string_of_text],pixel_matrix)
+            else:
+                print("OCR reader could Not recognize the\t",string_of_text)
+                return
+        else:
+            container=getClusterOfMultipleWords(string_of_text,ocr_extracted_dict,pixel_matrix)
+            vertical_aligned_text_container=get_vertically_aligned_text(container)
+            unique_vertical_aligned_text_container=get_unique(vertical_aligned_text_container)
+            container=unique_vertical_aligned_text_container
+        writelog(string_of_text+"\n")
+        writelog(str(container))
+        writelog("- "*100)
+        if len(container)==1:
+                w=container[0][3]
+                h=container[0][4]
+                x=container[0][1]
+                y=container[0][2]
+                return  (string_of_text,x,y,w,h,{'cluster_of_word':container})
+        else:
+                w=container[-1][1]-container[0][1]
+                h=container[0][4]
+                x=container[0][1]
+                y=container[0][2]
+                return (string_of_text,x,y,w,h,{'cluster_of_word':container})
+    except Exception as e:
+        print(e)
    
 
+    print("Debug getLocationMatrix",container)
+
+    
+# ocr_extracted_dict={'Import': {(34, 76, 89, 23), (1113, 928, 73, 23)}, 'Events': {(2412, 884, 66, 16), (1462, 78, 84, 18)}, 'Search': {(1622, 75, 81, 20)}, 'Create': {(2581, 76, 81, 19)}, 'Share': {(2746, 75, 72, 20)}, 'Media': {(1038, 72, 74, 36), (1195, 927, 64, 20)}, 'Places': {(1322, 76, 79, 20)}, 'Albums': {(71, 134, 58, 29)}, 'i': {(211, 132, 30, 26)}, 'Folders': {(63, 207, 62, 15), (250, 138, 56, 15)}, 'Ly': {(1436, 131, 35, 28)}, 'Named': {(1487, 137, 67, 17)}, '2?': {(1620, 131, 37, 29)}, 'UnNamed': {(1671, 136, 95, 19)}, 'My': {(33, 208, 22, 18)}, 'M': {(375, 193, 20, 20)}, 'Hide': {(402, 197, 33, 15)}, 'Small': {(444, 197, 39, 15)}, 'Stacks': {(490, 197, 51, 15)}, 'All': {(2436, 249, 20, 18), (1573, 197, 20, 15)}, 'People': {(33, 1489, 40, 13), (2464, 249, 62, 23), (1602, 197, 54, 19)}, 'Ratings': {(2623, 198, 57, 17)}, 'e': {(2717, 199, 39, 10)}, 'ee': {(2771, 199, 39, 10)}, 'GS': {(59, 244, 23, 21)}, 'dataseti': {(99, 248, 68, 15)}, 'Groups': {(2812, 1459, 50, 15), (2437, 313, 67, 21)}, 'fm': {(2438, 365, 24, 15)}, 'Colleagues': {(2478, 362, 84, 18)}, 'fim': {(2438, 413, 24, 15)}, 'Family': {(2478, 410, 46, 17)}, 'fmm': {(2438, 461, 24, 15)}, 'Friends': {(2478, 458, 55, 15)}, 'Ungrouped': {(2437, 504, 104, 23)}, 'I': {(1941, 594, 34, 33)}, 'pixelpy': {(2079, 599, 104, 26)}, 'pythonG': {(2195, 599, 118, 27)}, 'F': {(2328, 595, 32, 31)}, 'GJ': {(2378, 595, 32, 31)}, '08': {(2499, 597, 30, 27)}, 'EXPLORER': {(2046, 669, 92, 15)}, 'pixels': {(2388, 668, 63, 23)}, 'D': {(2470, 666, 18, 23)}, 'O': {(2801, 1183, 22, 25), (2703, 812, 24, 24), (2540, 663, 76, 28)}, 'Vv': {(2038, 801, 17, 28), (2017, 727, 17, 9)}, 'PYTHONGUI': {(2046, 723, 119, 15)}, 'et': {(2615, 725, 18, 13)}, 'n': {(2708, 728, 16, 11)}, 'p': {(2133, 851, 10, 17), (2420, 721, 44, 24)}, 'rs': {(2509, 728, 11, 17)}, 'pytestcache': {(2047, 762, 165, 24), (2087, 969, 140, 24)}, 'daab': {(2483, 773, 101, 18)}, 'tT': {(2608, 770, 19, 20)}, 'J': {(2655, 770, 19, 20)}, 'x': {(2747, 774, 16, 15)}, 'Pa': {(2787, 785, 54, 6)}, 'ke': {(2073, 805, 21, 17)}, 'cr': {(2137, 811, 20, 10)}, 'te': {(1205, 751, 400, 95)}, '?': {(2061, 1059, 10, 10), (1367, 747, 53, 125)}, 'QD': {(1482, 751, 123, 95)}, 'Boyton': {(2505, 812, 101, 26)}, 'ty': {(2628, 812, 49, 24)}, 'Wi': {(2751, 812, 21, 24)}, 't': {(2054, 844, 38, 18)}, 'test': {(2072, 890, 37, 14)}, 'PS': {(2366, 881, 24, 16)}, 'Aa': {(2637, 881, 22, 14)}, 'ab': {(2679, 879, 21, 15)}, 'py': {(2366, 914, 25, 19)}, 'awe': {(2475, 923, 50, 7)}, 'to': {(468, 1460, 14, 12), (1268, 929, 21, 18)}, 'see': {(1298, 933, 38, 14)}, 'similar': {(1345, 927, 72, 20)}, 'looking': {(1426, 927, 76, 24)}, 'faces': {(1511, 927, 57, 20)}, 'grouped': {(1577, 927, 88, 24)}, 'pycache': {(2087, 927, 126, 24)}, 'automatically': {(1316, 959, 148, 23)}, 'testpy': {(2378, 939, 94, 24)}, 'assets': {(2087, 1013, 62, 14)}, 'ocrv1': {(2087, 1053, 53, 16)}, 'OUTLINE': {(2045, 1087, 86, 45)}, 'TIMELINE': {(2045, 1149, 92, 15)}, 'version2': {(1948, 1181, 122, 29)}, 'oAo': {(2214, 1183, 95, 25)}, 'CRLF': {(2422, 1187, 49, 18)}, 'Python': {(2502, 1187, 68, 23)}, '385': {(2601, 1187, 44, 18)}, '32bit': {(2653, 1187, 59, 18)}, 'A': {(2743, 1183, 25, 25), (470, 1427, 6, 12)}, '1': {(21, 1409, 42, 33)}, 'ie': {(209, 1408, 46, 32)}, 'onl': {(441, 1404, 27, 21)}, 'ben': {(448, 1423, 14, 24)}, 'Lay': {(328, 1445, 29, 2)}, 'fin': {(2817, 1406, 42, 39)}, 'lide': {(16, 1458, 20, 14)}, 'Panel': {(42, 1458, 37, 14)}, 'Undo': {(120, 1458, 36, 14)}, 'Sideshow': {(198, 1458, 69, 14)}, 'Home': {(294, 1460, 39, 12)}, 'Screen': {(339, 1459, 48, 13)}, 'Upload': {(414, 1458, 48, 16)}, 'Cloud': {(487, 1458, 39, 14)}, 'Confirm': {(1252, 1458, 54, 14)}, 'Not': {(1342, 1460, 25, 12)}, 'this': {(1373, 1458, 24, 14)}, 'person': {(1402, 1462, 48, 12)}, 'Add': {(1492, 1458, 27, 14)}, 'Name': {(1525, 1460, 39, 12)}, 'Dont': {(1607, 1458, 36, 14)}, 'show': {(1648, 1458, 35, 14)}, 'again': {(1690, 1462, 38, 13)}, '0': {(20, 1489, 7, 11)}, 'catalog': {(2680, 1481, 46, 31)}, 'au1664797655': {(2731, 1491, 106, 11)}, 'TY': {(1254, 1554, 19, 10)}, 'ENG': {(2379, 1540, 49, 20)}, '2338': {(2720, 1539, 63, 20)}, 'IN': {(2392, 1575, 23, 20)}, 'S': {(2470, 1552, 37, 26)}, 'Q': {(2524, 1551, 37, 30)}, 'ta': {(2578, 1550, 37, 27)}, '03102022': {(2649, 1573, 134, 20)}, 'Ome': {(49, 1530, 836, 81)}, 'Pw': {(514, 1505, 174, 115)}, 'OX': {(744, 1505, 145, 115)}, 'o': {(1276, 1543, 208, 68), (1039, 1546, 148, 65)}}
 
 
+# getLocation('Events',ocr_extracted_dict)
 
             
 # print(getLocation('Upload to Cloud',get_unique((get_vertically_aligned_text(getClusterOfMultipleWords('Upload',pixellocationOfword,pixel_matrix))))))
