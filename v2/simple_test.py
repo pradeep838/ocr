@@ -5,7 +5,7 @@ import pytest
 import time
 
 def getRandomString(text=''):
-    return text+'_au'+str(time.time())
+    return text+'_au'+str(time.time()).replace(".","")
 def test_initiate():
     pa.alert("Test is getting started,Please Make sure You application UI is in Front")
     sleep(5)
@@ -18,20 +18,22 @@ def test_create_new_catalog():
     perfromActionOnly_Click(['OK'])
     sleep(4)
     perfromActionOnly_Click(['Skip'])
+    sleep(4)
+    perfromActionOnly_Click([catalog_name])
 
-test_initiate()  
-test_create_new_catalog()
+
 @pytest.mark.skip("in progress")
 def test_import_media_in_Eo():
     file_name=r'C:\Users\kumarp\Downloads\TestData\automationData\dataset1'
-    perfromActionOnly_Click(['Places','Import','From Fies and Folders...'])
+    perfromActionOnly_Click(['Places','Import','From Fies and Folders'])
     enterText(file_name)
     perfromActionOnly_Click(['_MG_0596'])
     pa.hotkey('ctrl','a')
     pa.press('Enter')
     sleep(75)
     
-
+test_initiate()  
+test_import_media_in_Eo()
 # @pytest.mark.skip("in progress")
 # def test_check_people_room_is_working():
 #     sleep(10)

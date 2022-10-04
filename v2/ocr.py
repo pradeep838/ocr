@@ -44,7 +44,7 @@ def getFullScreenImage():
     # myScreenshot= cv2.imread('testscreen.png')
    
     return myScreenshot
-factor=3
+factor=1.7
 def processImage(img):
 
     img = cv2.resize(img, None, fx=factor, fy=factor, interpolation=cv2.INTER_CUBIC)
@@ -98,10 +98,10 @@ def getAllText(img,psm_value=5,searching_text='current_'):
             if all_text_container.get(d['text'][i])==None:
                 all_text_container[d['text'][i]]=set()
             # rescale by factor
-            x=floor(x/factor)-12
-            y=floor(y/factor)-4
-            w-floor(y/factor)
-            h-floor(y/factor)
+            x=floor(x/factor)
+            y=floor(y/factor)
+            w=floor(w/factor)
+            h=floor(h/factor)
             all_text_container[d['text'][i]].add((x,y,w,h))
             # else:
             #     all_text_container[d['text'][i]].add((x,y,w,h))
@@ -109,15 +109,16 @@ def getAllText(img,psm_value=5,searching_text='current_'):
             # if save_flag & (d['text'][i]==searching_text):
             #     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             #     cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
-            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
+            print((x*factor, y*factor), ((x + w)*factor, (y + h)*factor))
+            print(((floor(x*factor)), floor(y*factor)), (floor((x + w)*factor), floor((y + h)*factor)))
+            cv2.rectangle(img,(floor(x*factor), floor(y*factor)), (floor((x + w)*factor), floor((y + h)*factor)), (0, 255, 0), 2)
+            cv2.putText(img,d['text'][i],(floor(x*factor),floor((y+h+15)*factor)),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
     
     if save_flag:
         saveImage("screenshot/"+searching_text+'psm'+str(psm_value)+".png",img)
         # showImage(searching_text,img)
     # writelog(str(all_text_container))
     return (all_text_container)
-
 # def Normalize(all_text_container):
 #     all_text_container_normalized={}
 #     factor=1.5
@@ -640,6 +641,7 @@ def perfromActionOnly_Click(chain_of_click_action):
        
 
 
+# getAllText(getFullScreenImage(),11,"justChecking")   //checking all the text extracted by ocr from current screenshot
 
 
 
