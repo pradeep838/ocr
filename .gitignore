@@ -1,4 +1,4 @@
-/demo/*
-/logs/*
-/screenshot/*
-__pycache__
+*/demo/*
+*/logs/**
+*/screenshot/**
+*/__pycache__
