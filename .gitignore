@@ -2,3 +2,5 @@
 */logs/**
 */screenshot/**
 */__pycache__
+*.html
+*/assets/*

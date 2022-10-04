@@ -44,7 +44,9 @@ def getFullScreenImage():
     # myScreenshot= cv2.imread('testscreen.png')
    
     return myScreenshot
+    
 factor=1.7
+
 def processImage(img):
 
     img = cv2.resize(img, None, fx=factor, fy=factor, interpolation=cv2.INTER_CUBIC)
@@ -361,7 +363,6 @@ def perfomClickOnText(text):
     #             MAX_PSM=MAX_PSM+1
     if x<-1:
         print('Nothing Found event after uisng cluster...')
-
 
 
 

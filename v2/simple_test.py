@@ -1,3 +1,4 @@
+from this import d
 from ocr import perfromActionOnly_Click,enterText,sleep,clickUsingSupport
 #clickCtenter,moveToCenter,getCordinate,clickCordinate
 import pyautogui as pa
@@ -19,21 +20,67 @@ def test_create_new_catalog():
     sleep(4)
     perfromActionOnly_Click(['Skip'])
     sleep(4)
-    perfromActionOnly_Click([catalog_name])
+    # perfromActionOnly_Click([catalog_name])
 
 
-@pytest.mark.skip("in progress")
+# @pytest.mark.skip("in progress")
 def test_import_media_in_Eo():
     file_name=r'C:\Users\kumarp\Downloads\TestData\automationData\dataset1'
-    perfromActionOnly_Click(['Places','Import','From Fies and Folders'])
+    perfromActionOnly_Click(['Places','Import','From Files and Folders'])
     enterText(file_name)
-    perfromActionOnly_Click(['_MG_0596'])
+    sleep(5)
+    perfromActionOnly_Click(['MG0596jpg'])
     pa.hotkey('ctrl','a')
+    sleep(2)
     pa.press('Enter')
-    sleep(75)
+    sleep(15)
+    perfromActionOnly_Click(['OK'])
+
+def test_createSlideShow_from_Media_Room():
+    perfromActionOnly_Click(['Events','Media'])
+    pa.hotkey('ctrl','a')
+    sleep(1)
+    perfromActionOnly_Click(["Slideshow"])
+    sleep(15)
+    perfromActionOnly_Click(["Save"])
+    pa.typewrite(getRandomString('slideshow'))
+    pa.press("Enter")
+    perfromActionOnly_Click(['Back'])
+
+@pytest.mark.skip("in progress")
+def test_chrome_automation():
+    pa.press('win')
+    sleep(5)
+    enterText('Google Chrome')
+    sleep(5)
+    pa.press('enter')
+    sleep(5)
+    enterText("https://elements.adobe.com")
+    pa.press('enter')
+    sleep(8)
+    perfromActionOnly_Click(['Email'])
+    enterText("kumarp@adobe.com")
+    pa.press('enter')
+    sleep(8)
+    perfromActionOnly_Click(['Personal Account'])
+    pa.press('enter')
+    perfromActionOnly_Click(['Password'])
+    enterText('Chiku@0793')
+    pa.press('enter')
+    sleep(10)
+    pa.hotkey('fn','alt','f4')
+
+
+
+
+
     
-test_initiate()  
-test_create_new_catalog()
+# test_initiate()  
+# test_connectGlobalProtectVpn()
+
+    
+
+
 # @pytest.mark.skip("in progress")
 # def test_check_people_room_is_working():
 #     sleep(10)

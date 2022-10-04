@@ -130,6 +130,31 @@ def get_unique(container):
         
     return (unique_words)
 
+def merge_text_at_same_y_level(container=[[]]):
+    if(len(container[0]))==0: return container
+    expected_y_variation=10
+    unique_y_height_with_in_variation_limit=[]
+    def getkeyOfYCord(y_cord):
+        # if(len(unique_y_height_with_in_variation_limit))==0:return y_cord
+        is_present=False
+        for key in unique_y_height_with_in_variation_limit:
+            if abs(key-y_cord)<expected_y_variation:
+                return key
+        unique_y_height_with_in_variation_limit.append(y_cord)
+        return y_cord
+    dict_tuple_at_same_y_level={}
+    for each_word in container:
+        y_cordinate=each_word[0][2]
+        key=getkeyOfYCord(y_cordinate)
+        if dict_tuple_at_same_y_level.get(key)==None:
+            dict_tuple_at_same_y_level[key]=[]
+        dict_tuple_at_same_y_level[key].append(each_word[0])
+    
+
+    return dict_tuple_at_same_y_level
+
+
+
 def getLocation(string_of_text,ocr_extracted_dict):
     #checking for empty string
     container=[]
@@ -156,11 +181,13 @@ def getLocation(string_of_text,ocr_extracted_dict):
         writelog(string_of_text+"\n")
         writelog(str(container))
         writelog("- "*100)
-        dict_of_all_found_words=mergeEachRowOfClusterInSentence(container)
+        vertically_aligned_dict=merge_text_at_same_y_level(container)
+
+        dict_of_all_found_words=mergeEachRowOfClusterInSentence(vertically_aligned_dict)
         #if entire text not located on screen - either partial text is present or
         if dict_of_all_found_words.get(string_of_text)==None:
             print("Debug:getLocation not found complete sentence location {} but OCR extracted all word".format(string_of_text))
-            return (string_of_text,-1,-1,-1,-1,{'cluster_of_word':dict_of_all_found_words})
+            return (string_of_text,None,None,None,None,{'cluster_of_word':dict_of_all_found_words})
         elif len(dict_of_all_found_words[string_of_text])==1:
             x,y,w,h=dict_of_all_found_words[string_of_text][0]
             return (string_of_text,x,y,w,h,{'cluster_of_word':dict_of_all_found_words})
@@ -169,7 +196,8 @@ def getLocation(string_of_text,ocr_extracted_dict):
     except Exception as e:
         import sys
         traceback.print_exception(*sys.exc_info())
-        print("Debug:getLocation\tTerminating the process....")
+        import pyautogui as pa
+        pa.alert("Debug:getLocation\tTerminating the process....")
         exit()
        
    
@@ -177,21 +205,25 @@ def getLocation(string_of_text,ocr_extracted_dict):
     print("Debug:getLocation",container)
 
 # this function will get 2D array each array having vertically aligned text set with in limit function getClusterOfWordsWithInRectangle
+#takes dict of y_cord as key and array of tuple(word,x,y,w,h) as the value
+#not handling sentence having horizontal length very high
 def mergeEachRowOfClusterInSentence(multiple_cluster):
     #bug what if same text is found at two different location
     contanier={}
-    for row in multiple_cluster:
-        sentence=''
-        x=y=w=h=0 
-        for word_tuple in row:
-            sentence+=str(word_tuple[0])+' '
-            x=(word_tuple[1])
-            y=(word_tuple[2])
-            w=(row[-1][1]-row[0][1])
-            h=(word_tuple[4])
-        if contanier.get(sentence.strip())==None:
-                contanier[sentence.strip()]=[]
-        contanier[sentence.strip()].append((x,y,w,h))
+    for key,value in multiple_cluster.items():
+            sentence=''
+            x=value[0][1]
+            y=value[0][2]
+            if(len(value)==1):
+                w=value[0][3]
+            else:
+                w=value[-1][1]-value[0][1]
+            h=value[0][4]
+            for word_tuple in value:
+                sentence+=str(word_tuple[0])+' '
+            if contanier.get(sentence.strip())==None:
+                    contanier[sentence.strip()]=[]
+            contanier[sentence.strip()].append((x,y,w,h))
     return contanier
 
 
