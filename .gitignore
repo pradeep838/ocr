@@ -1,3 +1,4 @@
 /demo/*
 /logs/*
 /screenshot/*
+__pycache__
