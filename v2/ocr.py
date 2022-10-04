@@ -453,6 +453,7 @@ def clickOnTextUsingSpecifPSM(text,psm):
         y=val[2]
         w=val[3]
         h=val[4]
+        print(text,val)
         # pa.moveTo(x, y)
         # if not text=='Fle':
         #     center_x=x+(w/2)

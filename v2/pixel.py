@@ -50,7 +50,7 @@ def getClusterOfWordsWithInRectangle(single_word_set_of_all_possible_cordinate,p
         # print(row,col)
         # for each vertical row search horizonally....
         vertical_margin_to_search=10
-        horizontal_margin_to_search=40
+        horizontal_margin_to_search=8
         for search_row in range(max(row-vertical_margin_to_search,0),min(row+vertical_margin_to_search,MAX_ROWS)):
             for search_col in range(col,min(col+horizontal_margin_to_search,MAX_COLS)):
                 if(not(pxiel_matrix[search_row][search_col][0]=='')):
@@ -80,7 +80,8 @@ def getClusterOfWordsWithInRectangle(single_word_set_of_all_possible_cordinate,p
 def getClusterOfMultipleWords(str_of_text,ocr_extracted_dict,pixel_matrix):
     str_of_text=str_of_text.split(" ")
     container=[]
-    for single_word in str_of_text[0:1]:
+    # for single_word in str_of_text[0:1]:
+    for single_word in str_of_text:
         # print("Debug:getClusterOfMultipleWords\n",single_word)
         if not ocr_extracted_dict.get(single_word)==None:
             single_word_cluster=getClusterOfWordsWithInRectangle(ocr_extracted_dict[single_word],pixel_matrix)
