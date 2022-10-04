@@ -33,7 +33,7 @@ def test_import_media_in_Eo():
     sleep(75)
     
 test_initiate()  
-test_import_media_in_Eo()
+test_create_new_catalog()
 # @pytest.mark.skip("in progress")
 # def test_check_people_room_is_working():
 #     sleep(10)

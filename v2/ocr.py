@@ -109,8 +109,8 @@ def getAllText(img,psm_value=5,searching_text='current_'):
             # if save_flag & (d['text'][i]==searching_text):
             #     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             #     cv2.putText(img,d['text'][i],(x,y+h+20),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
-            print((x*factor, y*factor), ((x + w)*factor, (y + h)*factor))
-            print(((floor(x*factor)), floor(y*factor)), (floor((x + w)*factor), floor((y + h)*factor)))
+            # print((x*factor, y*factor), ((x + w)*factor, (y + h)*factor))
+            # print(((floor(x*factor)), floor(y*factor)), (floor((x + w)*factor), floor((y + h)*factor)))
             cv2.rectangle(img,(floor(x*factor), floor(y*factor)), (floor((x + w)*factor), floor((y + h)*factor)), (0, 255, 0), 2)
             cv2.putText(img,d['text'][i],(floor(x*factor),floor((y+h+15)*factor)),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
     

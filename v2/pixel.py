@@ -1,6 +1,7 @@
 
 
 from operator import contains
+import traceback
 from typing import Container
 
 
@@ -37,7 +38,6 @@ def getLocationMatrix(ocr_extracted_dict):
             
 
 
-# logic is not correct
 
 
 def getClusterOfWordsWithInRectangle(single_word_set_of_all_possible_cordinate,pxiel_matrix):
@@ -50,7 +50,7 @@ def getClusterOfWordsWithInRectangle(single_word_set_of_all_possible_cordinate,p
         # print(row,col)
         # for each vertical row search horizonally....
         vertical_margin_to_search=10
-        horizontal_margin_to_search=150
+        horizontal_margin_to_search=40
         for search_row in range(max(row-vertical_margin_to_search,0),min(row+vertical_margin_to_search,MAX_ROWS)):
             for search_col in range(col,min(col+horizontal_margin_to_search,MAX_COLS)):
                 if(not(pxiel_matrix[search_row][search_col][0]=='')):
@@ -139,42 +139,45 @@ def getLocation(string_of_text,ocr_extracted_dict):
         splitted_text=string_of_text.split(" ")
         # ocr_extracted_dict=pixellocationOfword   #getAllTextFunction()
         pixel_matrix=getLocationMatrix(ocr_extracted_dict)
-        print("Debug: enter here14")
-        if len(splitted_text)==1:
-            if not ocr_extracted_dict.get(string_of_text)==None:
-                print("Debug: enter here12")
-                container=getClusterOfWordsWithInRectangle(ocr_extracted_dict[string_of_text],pixel_matrix)
-            else:
-                print("OCR reader could Not recognize the\t",string_of_text)
-                return
-        else:
-            container=getClusterOfMultipleWords(string_of_text,ocr_extracted_dict,pixel_matrix)
+        print("Debug:getLocation")
+        # if len(splitted_text)==1:
+        #     if not ocr_extracted_dict.get(string_of_text)==None:
+        #         print("Debug: enter here12")
+        #         container=getClusterOfWordsWithInRectangle(ocr_extracted_dict[string_of_text],pixel_matrix)
+        #     else:
+        #         print("OCR reader could Not recognize the\t",string_of_text)
+        #         return
+        # else:
+        container=getClusterOfMultipleWords(string_of_text,ocr_extracted_dict,pixel_matrix)
             # vertical_aligned_text_container=get_vertically_aligned_text(container)
             # unique_vertical_aligned_text_container=get_unique(vertical_aligned_text_container)
             # container=unique_vertical_aligned_text_container
         writelog(string_of_text+"\n")
         writelog(str(container))
         writelog("- "*100)
-        if len(container[0])==1:
-                w=container[0][0][3]
-                h=container[0][0][4]
-                x=container[0][0][1]
-                y=container[0][0][2]
-                return  (string_of_text,x,y,w,h,{'cluster_of_word':container})
+        dict_of_all_found_words=mergeEachRowOfClusterInSentence(container)
+        #if entire text not located on screen - either partial text is present or
+        if dict_of_all_found_words.get(string_of_text)==None:
+            print("Debug:getLocation not found complete sentence location {} but OCR extracted all word".format(string_of_text))
+            return (string_of_text,-1,-1,-1,-1,{'cluster_of_word':dict_of_all_found_words})
+        elif len(dict_of_all_found_words[string_of_text])==1:
+            x,y,w,h=dict_of_all_found_words[string_of_text][0]
+            return (string_of_text,x,y,w,h,{'cluster_of_word':dict_of_all_found_words})
         else:
-                w=container[-1][1]-container[0][1]
-                h=container[0][4]
-                x=container[0][1]
-                y=container[0][2]
-                return (string_of_text,x,y,w,h,{'cluster_of_word':container})
+            raise  Exception("{} found at multiple location, possible collision occours.Please check the location here below\ncurrently not supporting indexing of GUI elements...\n{}".format(string_of_text,dict_of_all_found_words))
     except Exception as e:
-        print("Debug:getLocationMatrix:",e)
+        import sys
+        traceback.print_exception(*sys.exc_info())
+        print("Debug:getLocation\tTerminating the process....")
+        exit()
+       
    
 
-    print("Debug:getLocationMatrix",container)
+    print("Debug:getLocation",container)
 
 # this function will get 2D array each array having vertically aligned text set with in limit function getClusterOfWordsWithInRectangle
 def mergeEachRowOfClusterInSentence(multiple_cluster):
+    #bug what if same text is found at two different location
     contanier={}
     for row in multiple_cluster:
         sentence=''
@@ -185,7 +188,9 @@ def mergeEachRowOfClusterInSentence(multiple_cluster):
             y=(word_tuple[2])
             w=(row[-1][1]-row[0][1])
             h=(word_tuple[4])
-        contanier[sentence.strip()]=(x,y,w,h)
+        if contanier.get(sentence.strip())==None:
+                contanier[sentence.strip()]=[]
+        contanier[sentence.strip()].append((x,y,w,h))
     return contanier
 
 
