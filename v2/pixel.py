@@ -25,10 +25,14 @@ MAX_COLS=19201
 # and it pixel[i][j]=(ocr_extracted_text,x_cordinate,y_cordinate)
 def getLocationMatrix(ocr_extracted_dict):
     # print('running pixel matrix')
+    ocr_x_cord_index=0
+    ocr_y_cord_index=1
+    ocr_w_index=2
+    ocr_h_index=3
     pxiel_matrix = [[("",0,0) for i in range(MAX_COLS)] for j in range(MAX_ROWS)]
     for ocr_extracted_single_wrd,locations in ocr_extracted_dict.items():
         for location in locations:
-            pxiel_matrix[location[1]][location[0]]=(ocr_extracted_single_wrd,location[2],location[3])
+            pxiel_matrix[location[ocr_y_cord_index]][location[ocr_x_cord_index]]=(ocr_extracted_single_wrd,location[ocr_w_index],location[ocr_h_index])
     return pxiel_matrix
             
 
