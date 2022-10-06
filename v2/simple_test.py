@@ -8,9 +8,15 @@ import time
 def getRandomString(text=''):
     return text+'_au'+str(time.time()).replace(".","")
 def test_initiate():
-    pa.alert("Test is getting started,Please Make sure You application UI is in Front")
+    # pa.alert("Test is getting started,Please Make sure You application UI is in Front")
     sleep(5)
-
+def test_2():
+    catalog_name=getRandomString('catalog')
+    perfromActionOnly_Click(['Run'])
+# test_initiate()
+# test_2()
+# import pyautogui as pa
+# # print(pa.size())
 # @pytest.mark.skip("in progress")
 def test_create_new_catalog():
     catalog_name=getRandomString('catalog')
@@ -23,7 +29,7 @@ def test_create_new_catalog():
     # perfromActionOnly_Click([catalog_name])
 
 
-# @pytest.mark.skip("in progress")
+@pytest.mark.skip("in progress")
 def test_import_media_in_Eo():
     file_name=r'C:\Users\kumarp\Downloads\TestData\automationData\dataset1'
     perfromActionOnly_Click(['Places','Import','From Files and Folders'])
@@ -36,6 +42,7 @@ def test_import_media_in_Eo():
     sleep(15)
     perfromActionOnly_Click(['OK'])
 
+@pytest.mark.skip("in progress")
 def test_createSlideShow_from_Media_Room():
     perfromActionOnly_Click(['Events','Media'])
     pa.hotkey('ctrl','a')

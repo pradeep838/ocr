@@ -10,7 +10,7 @@ import numpy as np
 import pyautogui as pa
 
 from pixel import getLocation  #getClusterOfWordsWithInRectangle,getLocationMatrix
-pytesseract.pytesseract.tesseract_cmd = TESTRECT_EXE
+# pytesseract.pytesseract.tesseract_cmd = TESTRECT_EXE
 import time
 
 
@@ -45,7 +45,7 @@ def getFullScreenImage():
    
     return myScreenshot
     
-factor=1.7
+factor=1
 
 def processImage(img):
 
@@ -450,10 +450,10 @@ def clickOnTextUsingSpecifPSM(text,psm):
             writelog(str(all_text),text+"_"+str(psm))
             return OCR_FAILURE_NOT_DETECTED_CURRENT_WORD
         val=getLocation(text,all_text)
-        x=val[1]
-        y=val[2]
-        w=val[3]
-        h=val[4]
+        x=val[1]/2
+        y=val[2]/2
+        w=val[3]/2
+        h=val[4]/2
         print(text,val)
         # pa.moveTo(x, y)
         # if not text=='Fle':

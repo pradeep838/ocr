@@ -17,9 +17,10 @@ def writelog(text):
 
 #Global Variable.
 MAX_ROWS=1081
-MAX_COLS=19201
+MAX_COLS=1920
 
-
+MAX_ROWS=1800+1
+MAX_COLS=2880+1
 
 # return a pixel matrix having row=Max_Rows and cols=Max_cols 
 # and each pixel[i][j] will map to ocr_extracted_text at location j,i 
@@ -32,6 +33,7 @@ def getLocationMatrix(ocr_extracted_dict):
     ocr_h_index=3
     pxiel_matrix = [[("",0,0) for i in range(MAX_COLS)] for j in range(MAX_ROWS)]
     for ocr_extracted_single_wrd,locations in ocr_extracted_dict.items():
+        print(locations)
         for location in locations:
             pxiel_matrix[location[ocr_y_cord_index]][location[ocr_x_cord_index]]=(ocr_extracted_single_wrd,location[ocr_w_index],location[ocr_h_index])
     return pxiel_matrix
