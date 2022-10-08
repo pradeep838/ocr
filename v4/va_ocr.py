@@ -15,37 +15,15 @@ class VA_OCR:
         self.all_text= None
         self.scalingFactor=None  #set Via configuration object
     
+   
     
     @staticmethod
-    def extractAllTextFromImage(img,psm_value,fx,fy):
+    def extractAllTextFromImage(img,psm_value):
         custom_config = '--oem 3 --psm '+str(psm_value)+'  -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""▢'
         # custom_config = '-l eng --oem 3 --psm '+str(psm_value)+'  -c tessedit_char_blacklist=""'
         # custom_config = '--oem 3 --psm '+str(psm_value)+'  -c tessedit_char_whitelist='+searching_text
         dict_ocr_texts = pytesseract.image_to_data(img, output_type=Output.DICT,config=custom_config)
-        print(np.shape(img))
-
-        n_boxes = len(dict_ocr_texts['level'])
-        for i in range(n_boxes):
-            if (dict_ocr_texts['text'][i]==""):continue
-            
-            (x, y, w, h) = (dict_ocr_texts['left'][i], dict_ocr_texts['top'][i], dict_ocr_texts['width'][i], dict_ocr_texts['height'][i])
-            # dict_ocr_texts['text'][i]=VA_Core.sanitize_text(dict_ocr_texts['text'][i])
-            # if(check_text(dict_ocr_texts['text'][i])):
         
-            
-            # rescale by factor
-            scaled_tuple = tuple((math.floor(ele1 // ele2 ))for ele1, ele2 in zip((x,y,w,h), (fx,fy,fx,fy)))
-            (x,y,w,h)=scaled_tuple
-            # x=math.floor(x/factor)
-            # y=math.floor(y/factor)
-            # w=math.floor(w/factor)
-            # h=math.floor(h/factor)
-            cv2.rectangle(img,(floor(x), floor(y)), (floor((x + w)), floor((y + h))), (0, 255, 0), 2)
-            cv2.putText(img,dict_ocr_texts['text'][i],(floor(x),floor((y+h+15))),cv2.FONT_HERSHEY_DUPLEX,0.7,(255,255,255),1,cv2.LINE_AA)
-    
-         
-
-        cv2.imwrite("demo.png",img)
         return dict_ocr_texts
 
        

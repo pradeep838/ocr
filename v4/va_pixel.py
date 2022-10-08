@@ -114,12 +114,6 @@ class VA_Pixel:
                 print('string  is Empty...')
                 return
             
-            # splitted_text_list=string_of_text.split(" ")
-            if not VA_Pixel.is_space_seperated_word_found(string_of_text,ocr_extracted_dict):
-                print("text not found on UI:",string_of_text)
-                return OCR_NOT_FOUND
-                raise Exception("Not found any text")
-            # ocr_extracted_dict=pixellocationOfword   #getAllTextFunction()
             pixel_matrix=VA_Pixel.getLocationMatrix(ocr_extracted_dict)
             print("Debug:getLocation")
 
@@ -131,21 +125,12 @@ class VA_Pixel:
             vertically_aligned_dict=VA_Pixel.merge_text_at_same_y_level(container)
 
             dict_of_all_found_words=VA_Pixel.mergeEachRowOfClusterInSentence(vertically_aligned_dict)
-            #if entire text not located on screen - either partial text is present or
-            if dict_of_all_found_words.get(string_of_text)==None:
-                print("Debug:getLocation not found complete sentence location {} but OCR extracted all word".format(string_of_text))
-                return (string_of_text,None,None,None,None,{'cluster_of_word':dict_of_all_found_words})
-            elif len(dict_of_all_found_words[string_of_text])==1:
-                x,y,w,h=dict_of_all_found_words[string_of_text][0]
-                return (string_of_text,x,y,w,h,{'cluster_of_word':dict_of_all_found_words})
-            else:
-                raise  Exception("{} found at multiple location, possible collision occours.Please check the location here below\ncurrently not supporting indexing of GUI elements...\n{}".format(string_of_text,dict_of_all_found_words))
+            return dict_of_all_found_words
+            
         except Exception as e:
             import sys
             traceback.print_exception(*sys.exc_info())
-            import pyautogui as pa
-            # pa.alert("Debug:getLocation\tTerminating the process....")
-            exit()
+           
         
 
     # this function will get 2D array each array having vertically aligned text set with in limit function getClusterOfWordsWithInRectangle

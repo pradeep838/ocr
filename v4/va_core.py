@@ -3,27 +3,31 @@ import math
 from va_image import VA_Image
 from va_ocr import VA_OCR
 from va_pixel import VA_Pixel
+import time
 
 import cv2
 floor=math.floor
 
-config={"psm_value":11,"fx":2,"fy":2}
+config={"psm_value":11,"fx":2,"fy":2,"screenShotPath":"screenshot/"}
 
 class VA_Core:
-    
+
+    config=config
     def __init__(self) -> None:
         pass
 
     
        
-    @staticmethod
-    def get_all_text_and_location_displayed_on_current_screen(config):
-        img=VA_Image.getFullScreenRawImage()
-        img=VA_Image.processImage(img,config["fx"],config["fy"])
-        import numpy as np
-        print(np.shape(img))
-        dict_recognized_text=VA_OCR.extractAllTextFromImage(img,config["psm_value"],config["fx"],config["fy"])
-        return dict_recognized_text
+    # @staticmethod
+    # def get_all_text_and_location_displayed_on_current_screen(config):
+    #     img=VA_Image.getFullScreenRawImage()
+    #     img=VA_Image.processImage(img,config["fx"],config["fy"])
+    
+    #     dict_recognized_text=VA_OCR.extractAllTextFromImage(img,config["psm_value"])
+
+    #     #save processed image
+    #     VA_Image.saveProcessedImage(img,dict_recognized_text,'current11')
+    #     return dict_recognized_text
     
     @staticmethod
     def sanitize_text(text):
@@ -67,16 +71,76 @@ class VA_Core:
 
     @staticmethod
     def getAllLocationOfAText(text):
-        ocr_recognized_text=VA_Core.get_all_text_and_location_displayed_on_current_screen(config)
-        ocr_recognized_text=VA_Core.scale_down_cordinate_by(ocr_recognized_text,config['fx'],config['fy'])
+        # ocr_recognized_text=VA_Core.get_all_text_and_location_displayed_on_current_screen(config)
+        
+        img=VA_Image.getFullScreenRawImage()
+        img=VA_Image.processImage(img,config["fx"],config["fy"])
+        dict_recognized_texts_tuples=VA_OCR.extractAllTextFromImage(img,config["psm_value"])
+
+        #save processed image
+        VA_Image.saveProcessedImage(img,dict_recognized_texts_tuples,text,config['screenShotPath'])
+        # return dict_recognized_text
+      
+      
+        ocr_recognized_text=VA_Core.scale_down_cordinate_by(dict_recognized_texts_tuples,config['fx'],config['fy'])
+        #log somewhere ocr_recognized text
+        
         #check if all words is present in ocr extracted text if not then try for another scale factor
-        l=VA_Pixel.getLocation(text,ocr_recognized_text)
-        print(l)
+
+        if not VA_Pixel.is_space_seperated_word_found(text,ocr_recognized_text):
+                print("text not found on UI:",text)
+                return {}
+        
+        all_location_of_a_text=VA_Pixel.getLocation(text,ocr_recognized_text)
+        return all_location_of_a_text
+    
         # import pyautogui as pa
         # pa.moveTo(l[1],l[2])
-  
+    @staticmethod
+    def getTextLocation(text,index=0):
+        all_location_dict=VA_Core.getAllLocationOfAText(text)
+        print(all_location_dict)
+        if len(all_location_dict)==0: 
+            print("Not found")
+            return  "NOT_FOUND"
+        elif len(all_location_dict[text])>index:
+            return all_location_dict[text][index]
+        else:
+            print("Not found text at index but multiple found  {} |".format(str(all_location_dict[text])))
+            return "MULTIPLE_FOUND_BUT_BELOW_GIVEN_INDEX"
+        #possibility of keyerror due to horizontal margin
+
+    @staticmethod
+    def waitUntilTextIsNotVisible(text,index=0,TIMEOUT=60,POLLING_TIME=10):
+        remaining_time=TIMEOUT
+        while True and (remaining_time>0):
+            location_tuple=VA_Core.getTextLocation(text,index)
+            if location_tuple=="NOT_FOUND":
+                print("Wating for antother {} second to appear text- {}".format(POLLING_TIME,text))
+                remaining_time-=POLLING_TIME
+                time.sleep(POLLING_TIME)
+            elif location_tuple=="MULTIPLE_FOUND_BUT_BELOW_GIVEN_INDEX":
+                print("{} found at multiple location but given index is very large...")
+                remaining_time-=POLLING_TIME
+                time.sleep(POLLING_TIME)
+            else:
+                print("{} Found at location {}".format(text,location_tuple))
+                break
+    
+    def isTextVisible(text,index):
+        location_tuple=VA_Core.getTextLocation(text,index)
+        if location_tuple=="NOT_FOUND" or location_tuple=="MULTIPLE_FOUND_BUT_BELOW_GIVEN_INDEX":
+              return False
+        return True
+
+            
 
 
+
+
+
+
+    
 
         
 
@@ -85,6 +149,7 @@ class VA_Core:
 
 
 # print(config["psm_value"])
-ocr_texts=VA_Core.getAllLocationOfAText("Help")
-
+ocr_texts=VA_Core.isTextVisible("Help 9895",0)
 print(ocr_texts)
+
+
