@@ -5,7 +5,7 @@ from va_ocr import VA_OCR
 from va_pixel import VA_Pixel
 import time
 
-import cv2
+
 floor=math.floor
 
 config={"psm_value":11,"fx":2,"fy":2,"screenShotPath":"screenshot/"}
@@ -113,6 +113,8 @@ class VA_Core:
     @staticmethod
     def waitUntilTextIsNotVisible(text,index=0,TIMEOUT=60,POLLING_TIME=10):
         remaining_time=TIMEOUT
+        is_found=False
+        location_tuple=None
         while True and (remaining_time>0):
             location_tuple=VA_Core.getTextLocation(text,index)
             if location_tuple=="NOT_FOUND":
@@ -124,9 +126,17 @@ class VA_Core:
                 remaining_time-=POLLING_TIME
                 time.sleep(POLLING_TIME)
             else:
+                is_found=True
                 print("{} Found at location {}".format(text,location_tuple))
                 break
+       
+        if not(is_found) and remaining_time<0:
+            return "NOT_FOUND_AFTER_WAITING"
+        
+        return location_tuple
+
     
+
     def isTextVisible(text,index):
         location_tuple=VA_Core.getTextLocation(text,index)
         if location_tuple=="NOT_FOUND" or location_tuple=="MULTIPLE_FOUND_BUT_BELOW_GIVEN_INDEX":
@@ -149,7 +159,6 @@ class VA_Core:
 
 
 # print(config["psm_value"])
-ocr_texts=VA_Core.isTextVisible("Help 9895",0)
-print(ocr_texts)
+
 
 
