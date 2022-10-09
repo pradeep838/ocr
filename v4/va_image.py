@@ -28,6 +28,7 @@ class VA_Image:
     def getFullScreenRawImage():
         img = VA_PyAutoGUI_Wrapper.takeScreenShot()
         return VA_Image.convertImageTonumpyArray(img)
+        #img=cv2.imread('new.png')
 
    
     @staticmethod
@@ -70,7 +71,7 @@ class VA_Image:
             (x, y, w, h) = (dict_ocr_texts['left'][i], dict_ocr_texts['top'][i], dict_ocr_texts['width'][i], dict_ocr_texts['height'][i])
         
             cv2.rectangle(img,(floor(x), floor(y)), (floor((x + w)), floor((y + h))), (0, 255, 0), 2)
-            cv2.putText(img,dict_ocr_texts['text'][i],(floor(x),floor((y+h+15))),cv2.FONT_HERSHEY_DUPLEX,0.7,(255,255,255),1,cv2.LINE_AA)
+            cv2.putText(img,dict_ocr_texts['text'][i],(floor(x),floor((y+h+15))),cv2.FONT_HERSHEY_DUPLEX,0.7,(139,0,0),1,cv2.LINE_AA)
     
         cv2.imwrite("{}/pro_{}.png".format(location,name),img)
 

@@ -19,11 +19,10 @@ class VA_OCR:
     
     @staticmethod
     def extractAllTextFromImage(img,psm_value):
-        custom_config = '--oem 3 --psm '+str(psm_value)+'  -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""▢'
+        custom_config = '--oem 3 --psm '+str(psm_value)+' -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ".""▢'
         # custom_config = '-l eng --oem 3 --psm '+str(psm_value)+'  -c tessedit_char_blacklist=""'
         # custom_config = '--oem 3 --psm '+str(psm_value)+'  -c tessedit_char_whitelist='+searching_text
         dict_ocr_texts = pytesseract.image_to_data(img, output_type=Output.DICT,config=custom_config)
-        
         return dict_ocr_texts
 
        

@@ -4,3 +4,5 @@
 */__pycache__
 *.html
 */assets/*
+.DS_Store
+temp.txt

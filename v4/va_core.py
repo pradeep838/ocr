@@ -8,7 +8,7 @@ import time
 
 floor=math.floor
 
-config={"psm_value":11,"fx":2,"fy":2,"screenShotPath":"screenshot/"}
+config={"psm_value":11,"fx":1,"fy":1,"screenShotPath":"screenshot/"}
 
 class VA_Core:
 
@@ -31,7 +31,7 @@ class VA_Core:
     
     @staticmethod
     def sanitize_text(text):
-        return text
+        return text.replace('.','').strip()
     
     def check_text_is_not_empty(text):
         if len(text.strip())==0:return False
@@ -74,6 +74,7 @@ class VA_Core:
         # ocr_recognized_text=VA_Core.get_all_text_and_location_displayed_on_current_screen(config)
         
         img=VA_Image.getFullScreenRawImage()
+      
         img=VA_Image.processImage(img,config["fx"],config["fy"])
         dict_recognized_texts_tuples=VA_OCR.extractAllTextFromImage(img,config["psm_value"])
 
@@ -84,12 +85,25 @@ class VA_Core:
       
         ocr_recognized_text=VA_Core.scale_down_cordinate_by(dict_recognized_texts_tuples,config['fx'],config['fy'])
         #log somewhere ocr_recognized text
-        
+        with open('temp.txt','w') as f:
+            f.write(str(ocr_recognized_text))
+
         #check if all words is present in ocr extracted text if not then try for another scale factor
 
         if not VA_Pixel.is_space_seperated_word_found(text,ocr_recognized_text):
-                print("text not found on UI:",text)
+                print("text not found on UI level1:",text)
+                # img=VA_Image.getFullScreenRawImage()
+      
+                # img=VA_Image.processImage(img,2,2)
+                # dict_recognized_texts_tuples=VA_OCR.extractAllTextFromImage(img,11)
+                # ocr_recognized_text=VA_Core.scale_down_cordinate_by(dict_recognized_texts_tuples,2,2)
+                # if not VA_Pixel.is_space_seperated_word_found(text,ocr_recognized_text):
                 return {}
+                # #check with another psm value
+                #     print("retrying text not found on UI:",text)
+
+        with open('temp.txt','w') as f:
+            f.write(str(ocr_recognized_text))
         
         all_location_of_a_text=VA_Pixel.getLocation(text,ocr_recognized_text)
         return all_location_of_a_text
