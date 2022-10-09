@@ -59,7 +59,7 @@ def test_share_via_flickr():
     .enterText('kumarp@adobe.com')\
     .pressEnter()\
     .wait(5)\
-    .enterText("Tester@870054")\
+    .enterText("")\
     .pressEnter()\
     .wait(5)\
     .waitForTextToVisible('Delete')\
