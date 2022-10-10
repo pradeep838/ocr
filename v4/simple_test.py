@@ -10,11 +10,11 @@ def test_initiate():
     # pa.alert("Test is getting started,Please Make sure You application UI is in Front")
     VA_Action.wait(5)
 
-    # t= threading.Thread(target=VA_Action.launchApplication)
-    # t.start()
-    # VA_Action.wait(10)
+    t= threading.Thread(target=VA_Action.launchApplication)
+    t.start()
+    VA_Action.wait(15)
 
-@pytest.mark.skip("in progress")
+# @pytest.mark.skip("in progress")
 def test_create_new_catalog():
     catalog_name=getRandomString('catalog')
     VA_Action.clickOnText('Events') \
@@ -27,7 +27,7 @@ def test_create_new_catalog():
     .clickOnText('Skip',waitTime=5)
         
 
-@pytest.mark.skip("in progress")
+# @pytest.mark.skip("in progress")
 def test_import_media_in_Eo():
     file_name=r'C:\Users\kumarp\Downloads\TestData\automationData\dataset1'
     VA_Action.clickOnText('Places')\
@@ -39,7 +39,7 @@ def test_import_media_in_Eo():
     .waitForTextToVisible('OK',TIMEOUT=120)\
     .clickOnText('OK')
 
-@pytest.mark.skip("in progress")
+# @pytest.mark.skip("in progress")
 def test_share_via_email():
     VA_Action.clickCenterOfScreen()\
     .clickOnText('Share')\
@@ -48,7 +48,7 @@ def test_share_via_email():
     .clickOnText('test')\
     .clickOnText('Next')
 
-@pytest.mark.skip("in progress")
+# @pytest.mark.skip("in progress")
 def test_share_via_flickr():
     VA_Action.clickCenterOfScreen()\
     .clickOnText('Share')\
@@ -59,7 +59,7 @@ def test_share_via_flickr():
     .enterText('kumarp@adobe.com')\
     .pressEnter()\
     .wait(5)\
-    .enterText("")\
+    .enterText("Tester@870054")\
     .pressEnter()\
     .wait(5)\
     .waitForTextToVisible('Delete')\
@@ -71,10 +71,9 @@ def test_share_via_flickr():
     .waitForTextToVisible('Done',1,TIMEOUT=180)
 
 def test_create_slideshow():
-    #clickCenterOfScreen()\
-    # .clickOnText('Slideshow')\
-    print('some method...')
-    VA_Action.waitForTextToVisible("Back")\
+    VA_Action.clickCenterOfScreen()\
+    .clickOnText('Slideshow')\
+    .waitForTextToVisible("Back")\
     .clickUsingAxis('Back',0,-16,120)\
     .wait(5)\
     .clickUsingAxis('Themes',0,0,50)\

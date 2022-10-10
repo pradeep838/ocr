@@ -151,7 +151,7 @@ class VA_Action:
     
     @staticmethod
     def clickCenterOfScreen():
-        x,y=pa.position()
+        x,y=pa.size()
         x=x/2
         y=y/2
         pa.click(x,y)
@@ -162,7 +162,8 @@ class VA_Action:
         VA_Action.platform_dependent_services.launchApplication(applicationName)
     
     def switchApplication(application_name,wait=1):
-        VA_Action.platform_dependent_services.switchApplication(application_name)
+        # VA_Action.platform_dependent_services.switchApplication(application_name)
+        VA_Action.platform_dependent_services.switchPreviousApplication()
         VA_Action.wait(1)
         return VA_Action
 

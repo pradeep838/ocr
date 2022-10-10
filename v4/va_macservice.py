@@ -22,6 +22,16 @@ class Mac_service:
         print('switched to ',application_name)
     
     @staticmethod
+    def switchPreviousApplication():
+        counter=1
+        pa.keyDown('command')
+        pa.press('tab')
+        pa.sleep(1)  
+        pa.keyUp('command')
+        # pa.press('option')
+        print('switched to ')
+    
+    @staticmethod
     def isApplicationRunning(application_name):
           filter_process=subprocess.check_output('ps aux | awk \'{if ($8 ="R") print}\' | grep \''+application_name+'\'',shell=True)
           procinfo=str(filter_process).split('\\n')
