@@ -15,7 +15,7 @@ pyautogui
 numpy
 open cv
 
-
+ pytest -p no:logging  ./../EOTest/**share**.py  --html=report.html
 API method:
   getLocation(text,index=0)
   clicOnText(text,index=0)
