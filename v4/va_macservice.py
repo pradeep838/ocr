@@ -1,7 +1,7 @@
 
 import pyautogui as pa
 from va_core import VA_Core
-import subprocess
+import subprocess,os
 
 class Mac_service:
     
@@ -19,7 +19,7 @@ class Mac_service:
             if(counter==24):break;   
         pa.keyUp('command')
         pa.press('option')
-        print('switched to ',application_name)
+        print('[Mac_services] switched to ',application_name)
     
     @staticmethod
     def switchPreviousApplication():
@@ -29,19 +29,19 @@ class Mac_service:
         pa.sleep(1)  
         pa.keyUp('command')
         # pa.press('option')
-        print('switched to ')
+        print('[Mac_services]  switched to previous application ')
     
     @staticmethod
     def isApplicationRunning(application_name):
           filter_process=subprocess.check_output('ps aux | awk \'{if ($8 ="R") print}\' | grep \''+application_name+'\'',shell=True)
           procinfo=str(filter_process).split('\\n')
-          print((procinfo))
+          print(("[Mac_services] running process", procinfo))
           if len(procinfo)>3:return True
           return False
     @staticmethod
     def launchApplication(ecec_path): 
         # status=subprocess.call(' open /Applications/Adobe\ Photoshop\ Elements\ 2023.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer')
-        import os
+       
         os.system('/Applications/Adobe\ Photoshop\ Elements\ 2023.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer')
         # print(status)
           

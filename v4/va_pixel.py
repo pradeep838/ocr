@@ -4,6 +4,7 @@
 # pixellocationOfword={ 'Upload': {(276, 972, 32, 11, 11),(276, 975, 32, 11, 11)}, 'to': {(313, 973, 8, 8, 11)}, 'Cloud': {(325, 972, 26, 9, 11)}}
 
 import traceback
+import logging
 
 OCR_NOT_FOUND=-1
 
@@ -26,21 +27,21 @@ class VA_Pixel:
     # and it pixel[i][j]=(ocr_extracted_text,x_cordinate,y_cordinate)
     @staticmethod
     def getLocationMatrix(ocr_extracted_dict):
-        # print('running pixel matrix')
+        # logging.debug('running pixel matrix')
         ocr_x_cord_index=0
         ocr_y_cord_index=1
         ocr_w_index=2
         ocr_h_index=3
         pxiel_matrix = [[("",0,0) for i in range(VA_Pixel.MAX_COLS)] for j in range(VA_Pixel.MAX_ROWS)]
         for ocr_extracted_single_wrd,locations in ocr_extracted_dict.items():
-            # print(locations)
+            # logging.debug(locations)
             for location in locations:
                 pxiel_matrix[location[ocr_y_cord_index]][location[ocr_x_cord_index]]=(ocr_extracted_single_wrd,location[ocr_w_index],location[ocr_h_index])
         return pxiel_matrix
             
     @staticmethod
     def getClusterOfWordsWithInRectangle(single_word_set_of_all_possible_cordinate,pxiel_matrix):
-        # print("Debug:getClusterOfWordsWithInRectangle",single_word_set_of_all_possible_cordinate)
+        # logging.debug("Debug:getClusterOfWordsWithInRectangle",single_word_set_of_all_possible_cordinate)
         all_posiblity_contianer=[]
         for i in (single_word_set_of_all_possible_cordinate):
             contianer=[]
@@ -55,8 +56,8 @@ class VA_Pixel:
                         contianer.append((pxiel_matrix[search_row][search_col][0],search_col,search_row,pxiel_matrix[search_row][search_col][1],pxiel_matrix[search_row][search_col][2]))
             horizontally_sorted=sorted(contianer,key=lambda x:x[1])
             all_posiblity_contianer.append(horizontally_sorted)
-        print("Debug:getClusterOfWordsWithInRectangle\n",all_posiblity_contianer)
-        print("Debug:getClusterOfWordsWithInRectangle\n","-"*10)
+        logging.debug("Debug:getClusterOfWordsWithInRectangle\n %s",all_posiblity_contianer)
+
         return all_posiblity_contianer   #[[(single word,x,y,w,h)],[],[]]
 
     #
@@ -66,10 +67,10 @@ class VA_Pixel:
         container=[]
         # for single_word in str_of_text[0:1]:
         for single_word in str_of_text:
-            # print("Debug:getClusterOfMultipleWords\n",single_word)
+            # logging.debug("Debug:getClusterOfMultipleWords\n",single_word)
             if not ocr_extracted_dict.get(single_word)==None:
                 single_word_cluster=VA_Pixel.getClusterOfWordsWithInRectangle(ocr_extracted_dict[single_word],pixel_matrix)
-                # print("Debug:getClusterOfMultipleWords\n",single_word_cluster)
+                # logging.debug("Debug:getClusterOfMultipleWords\n",single_word_cluster)
                 container.extend((single_word_cluster))
         
         # return sorted(container,key=lambda x:x[1]) #horizonatal sorting 
@@ -111,11 +112,11 @@ class VA_Pixel:
         container=[]
         try:
             if(len(string_of_text)==0):
-                print('string  is Empty...')
+                logging.debug('[Debug:getLocation] String  is Empty...')
                 return
             
             pixel_matrix=VA_Pixel.getLocationMatrix(ocr_extracted_dict)
-            print("Debug:getLocation")
+            logging.debug("D[ebug:getLocation] pixel Matrix built ...")
 
             container=VA_Pixel.getClusterOfMultipleWords(string_of_text,ocr_extracted_dict,pixel_matrix)
         
@@ -158,7 +159,7 @@ class VA_Pixel:
 
 
 
-# print(VA_Pixel.getLocation("",pixellocationOfword))
+# logging.debug(VA_Pixel.getLocation("",pixellocationOfword))
 
 
 

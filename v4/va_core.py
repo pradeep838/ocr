@@ -4,6 +4,7 @@ from va_image import VA_Image
 from va_ocr import VA_OCR
 from va_pixel import VA_Pixel
 import time
+import logging
 
 
 floor=math.floor
@@ -91,7 +92,7 @@ class VA_Core:
         #check if all words is present in ocr extracted text if not then try for another scale factor
 
         if not VA_Pixel.is_space_seperated_word_found(text,ocr_recognized_text):
-                print("text not found on UI level1:",text)
+                logging.debug("text not found on UI level1:",text)
                 # img=VA_Image.getFullScreenRawImage()
       
                 # img=VA_Image.processImage(img,2,2)
@@ -100,9 +101,9 @@ class VA_Core:
                 # if not VA_Pixel.is_space_seperated_word_found(text,ocr_recognized_text):
                 return {}
                 # #check with another psm value
-                #     print("retrying text not found on UI:",text)
+                #     logging.debug("retrying text not found on UI:",text)
 
-        with open('temp.txt','w') as f:
+        with open('logs/temp.txt','w') as f:
             f.write(str(ocr_recognized_text))
         
         all_location_of_a_text=VA_Pixel.getLocation(text,ocr_recognized_text)
@@ -113,14 +114,14 @@ class VA_Core:
     @staticmethod
     def getTextLocation(text,index=0):
         all_location_dict=VA_Core.getAllLocationOfAText(text)
-        print(all_location_dict)
+        logging.debug(all_location_dict)
         if len(all_location_dict)==0: 
-            print("Not found")
+            logging.debug("Not found")
             return  "NOT_FOUND"
         elif len(all_location_dict[text])>index:
             return all_location_dict[text][index]
         else:
-            print("Not found text at index but multiple found  {} |".format(str(all_location_dict[text])))
+            logging.debug("Not found text at index but multiple found  {} |".format(str(all_location_dict[text])))
             return "MULTIPLE_FOUND_BUT_BELOW_GIVEN_INDEX"
         #possibility of keyerror due to horizontal margin
 
@@ -132,16 +133,16 @@ class VA_Core:
         while True and (remaining_time>0):
             location_tuple=VA_Core.getTextLocation(text,index)
             if location_tuple=="NOT_FOUND":
-                print("Wating for antother {} second to appear text- {}".format(POLLING_TIME,text))
+                logging.debug("Wating for antother {} second to appear text- {}".format(POLLING_TIME,text))
                 remaining_time-=POLLING_TIME
                 time.sleep(POLLING_TIME)
             elif location_tuple=="MULTIPLE_FOUND_BUT_BELOW_GIVEN_INDEX":
-                print("{} found at multiple location but given index is very large...")
+                logging.debug("{} found at multiple location but given index is very large...")
                 remaining_time-=POLLING_TIME
                 time.sleep(POLLING_TIME)
             else:
                 is_found=True
-                print("{} Found at location {}".format(text,location_tuple))
+                logging.debug("{} Found at location {}".format(text,location_tuple))
                 break
        
         if not(is_found) and remaining_time<0:
@@ -156,23 +157,6 @@ class VA_Core:
         if location_tuple=="NOT_FOUND" or location_tuple=="MULTIPLE_FOUND_BUT_BELOW_GIVEN_INDEX":
               return False
         return True
-
-            
-
-
-
-
-
-
-    
-
-        
-
-
-
-
-
-# print(config["psm_value"])
 
 
 

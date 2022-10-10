@@ -17,7 +17,6 @@ class VA_Image:
 
     def __init__(self, configuration=None):
         self.configuration=configuration
-        print("helllo")
 
    
     @staticmethod
