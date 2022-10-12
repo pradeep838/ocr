@@ -18,7 +18,8 @@ def test_initiate():
 
 def test_create_new_catalog():
     catalog_name=getRandomString('catalog')
-    VA_Action.switchApplication('2023 Organizer')\
+    # switchApplication('2023 Organizer')\
+    VA_Action\
     .clickOnText('Events')\
     .clickOnText('File')\
     .clickOnText("Manage Catalogs")\
