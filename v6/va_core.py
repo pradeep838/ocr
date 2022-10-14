@@ -1,15 +1,16 @@
 
+
 import math
 from v6.va_image import VA_Image
 from v6.va_ocr import VA_OCR
 from v6.va_pixel import VA_Pixel
-import time
+import time,cv2
 import logging,functools
-
+import pyautogui as pa
 
 floor=math.floor
 
-config={"psm_value":4,"fx":1,"fy":1,"screenShotPath":"screenshot/"}
+config={"psm_value":11,"fx":1,"fy":1,"screenShotPath":"screenshot/"}
 
 class VA_Core:
 
@@ -71,10 +72,11 @@ class VA_Core:
 
 
     @staticmethod
-    def getAllLocationOfAText(text):
+    def getAllLocationOfAText(text,captureImageFlag,cropped_image):
         # ocr_recognized_text=VA_Core.get_all_text_and_location_displayed_on_current_screen(config)
-        
-        img=VA_Image.getFullScreenRawImage()
+        img= cropped_image
+        if captureImageFlag:
+            img=VA_Image.getFullScreenRawImage()
       
         img=VA_Image.processImage(img,config["fx"],config["fy"])
         dict_recognized_texts_tuples=VA_OCR.extractAllTextFromImage(img,config["psm_value"])
@@ -127,8 +129,8 @@ class VA_Core:
         return dict
 
     @staticmethod
-    def getTextLocation(text,index=0):
-        all_location_dict=VA_Core.getAllLocationOfAText(text)
+    def getTextLocation(text,index=0,captureImageFlag=True,cropped_image=None):
+        all_location_dict=VA_Core.getAllLocationOfAText(text,captureImageFlag,cropped_image)
         logging.debug(all_location_dict)
         if len(all_location_dict)==0: 
             logging.debug("Not found")
@@ -189,9 +191,80 @@ class VA_Core:
               return False
         return True
 
+    def clickUsingAxis(text,text_desired,index_desired=0,index=0,h_len=200,v_len=150):
+        # capture the image
+        # get the location of text,index
+        x,y,w,h=VA_Core.getTextLocation(text,index)        
+        
+        img=VA_Image.getFullScreenRawImage()
+       
+       
+        
+        x_new=x+h_len
+        y_new=y+v_len
+        y=y+80
+        x=x
+
+        x_lb=x if x<x_new else x_new
+        y_lb=y if x<x_new else y_new
+        x_ub=x_new if x<x_new else x
+        y_ub=y_new if y<y_new else y
+        print(x_lb,x_ub,y_lb,y_ub)
+        c_image=img[y_lb:y_ub,x_lb:x_ub]
+        # c_image=img
+        cv2.imwrite('crop.png',c_image)
+      
+        loc=VA_Core.getTextLocation(text_desired,index_desired,False,cropped_image=c_image)
+        print(loc)
+            
+        # x_max=x+h_len
+        # y_min=y-v_len
+        # crop that image using crop function
+        # get location of desired text if found 
+        # x_d,y_d,w_d,h_d
+        # x+x_d,y+y_d,w_d,h_d
+    @staticmethod
+    def clickUsingSearch(text,text_desired,index_desired=0,index=0,searchDir='bottom',iter=10,relative_to_axis_by=0 ):
+        # capture the image
+        # get the location of text,index
+        pixel_iterval=8
+        rect_width=200
+        rect_height=50
+        x,y,w,h=VA_Core.getTextLocation(text,index)
+    
+        y_new=y+rect_height-pixel_iterval
+
+        img=VA_Image.getFullScreenRawImage()
+        x=int(x/2)+relative_to_axis_by
+        x_center=x
+        for i in range(iter):
+            img=VA_Image.getFullScreenRawImage()
+            x_new=x+rect_width
+            y_new+=pixel_iterval
+            y+=pixel_iterval
+        
+            
+            x_lb=x if x<x_new else x_new
+            y_lb=y if x<x_new else y_new
+            x_ub=x_new if x<x_new else x
+            y_ub=y_new if y<y_new else y
+
+           
+            print(i,x_lb,x_ub,y_lb,y_ub,x_center,(y_new+y)/2)
+            c_image=img[y_lb:y_ub,x_lb:x_ub]
+            # c_image=img
+            cv2.imwrite('crop.png',c_image)
+            pa.moveTo(x_center/2,(y+y_new)/4)
+            loc=VA_Core.getTextLocation(text_desired,index_desired,False,cropped_image=c_image)
+            print(loc)
+            if len(loc)==4:break
+
+       
+        y_center=(y+y_new)/2
+        pa.click(x_center,y_center/2)
+           
 
 
-# print(VA_Core.getAllLocationOfAText('No'))
 
 
 

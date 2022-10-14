@@ -11,23 +11,28 @@ def getRandomString(text=''):
 def test_initiate():
     # pa.alert("Test is getting started,Please Make sure You application UI is in Front")
     VA_Action.wait(5)
-    if not VA_Action.platform_dependent_services.isApplicationRunning('Organizer'):
-        t= threading.Thread(target=VA_Action.launchApplication)
-        t.start()
-        VA_Action.wait(8)
+    # if not VA_Action.platform_dependent_services.isApplicationRunning('Organizer'):
+    #     t= threading.Thread(target=VA_Action.launchApplication)
+    #     t.start()
+    #     VA_Action.wait(8)
 
 
 
 
 def test_slide_show_export():
-    VA_Action.clickCenterOfScreen()\
-    .clickOnText('Slideshow')\
-    .waitForTextToVisible('Back')\
-    .clickOnText('Save')\
-    .enterText(getRandomString('Export'))\
-    .pressEnter()\
-    .clickOnText('Export')\
-    .clickOnText('Export video to local disk')\
-    .waitForTextToVisible('OK')\
-    .enterText(getRandomString('ExportedSlideshow'))\
-    .clickOnText('OK')
+    # VA_Action.clickCenterOfScreen()\
+    # .clickOnText('Slideshow')\
+    # .waitForTextToVisible('Back')\
+    # .clickOnText('Save')\
+    # .enterText(getRandomString('Export'))\
+    # .pressEnter()\
+    # .clickOnText('Export')\
+    # .clickOnText('Export video to local disk')\
+    # .waitForTextToVisible('OK')\
+    # .enterText(getRandomString('ExportedSlideshow'))\
+    # .clickOnText('OK')\
+    # .startTimer('Slideshow Performance Number')\
+    # .waitUntilTextIsVisible("Preparing Slideshow")\
+    # .clearTimer('Slideshow Performance Number')\
+    VA_Action.clickOnText("Yes")
+

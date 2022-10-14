@@ -1,9 +1,13 @@
 */demo/*
 */logs/**
 */screenshot/**
-*/__pycache__
+**/__pycache__/**
 *.html
 */assets/*
 .DS_Store
 temp.txt
 *.log
+assets/*
+screenshot/*
+*.pyc
+*.png

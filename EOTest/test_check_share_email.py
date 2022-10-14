@@ -23,10 +23,10 @@ def test_share_via_email():
     VA_Action.clickCenterOfScreen()\
     .clickOnText('Edit')\
     .clickOnText('Contact Book')\
-    .clickOnText('Contact')\
-    .enterText('firstNamek')\
+    .clickOnText('Contact',1)\
+    .enterText('firstNamekt')\
     .pressKey('tab')\
-    .enterText('lastName')\
+    .enterText('lastNamet')\
     .pressKey('tab')\
     .enterText('kumarp1@adobe.com')\
     .clickOnText('OK')\

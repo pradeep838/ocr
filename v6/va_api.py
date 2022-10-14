@@ -1,6 +1,5 @@
 
 from platform import platform
-from tkinter import EXCEPTION
 from  v6.va_core  import VA_Core
 import pyautogui as pa,time
 from v6.va_macservice import Mac_service
@@ -214,23 +213,6 @@ class VA_Action:
     def waitUntilTextIsVisible(text,index=0,TIMEOUT=60,poll=1):
         VA_Core.waitUntilTextIsVisible(text,index,TIMEOUT,poll)
         return VA_Action
-
-    @staticmethod
-    def assertVisiblity(text,index=0):
-        is_visible=VA_Action.isTextVisible(text,index)
-        if not is_visible:
-            raise EXCEPTION('text is not visible a {}[{}]'.format(text,index))
-        logging.info("[Assertion]:text is not visible\t %s for index[%i]",text,index)
-        return VA_Action
-    
-    @staticmethod
-    def assertNotVisible(text,index=0):
-        is_visible=VA_Action.isTextVisible(text,index)
-        if is_visible:
-            raise EXCEPTION('text is not visible a {}[{}]'.format(text,index))
-        logging.info("[assertNotVisible]:text is visible\t %s for index [%i]",text,index)
-        return VA_Action
-
 
 
 # VA_Action.wait(5)

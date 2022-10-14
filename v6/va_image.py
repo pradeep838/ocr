@@ -25,10 +25,11 @@ class VA_Image:
     
     @staticmethod
     def getFullScreenRawImage():
-        # img = VA_PyAutoGUI_Wrapper.takeScreenShot()
-        # return VA_Image.convertImageTonumpyArray(img)
-        img=cv2.imread('tesst.png')
-        return img
+        img = VA_PyAutoGUI_Wrapper.takeScreenShot()
+        return VA_Image.convertImageTonumpyArray(img)
+        # img=cv2.imread('/Users/kumarp/Downloads/pythonGUI/v6/read3.png')
+        # img=VA_Image.convertImageTonumpyArray(img)
+        # return img
 
    
     @staticmethod
