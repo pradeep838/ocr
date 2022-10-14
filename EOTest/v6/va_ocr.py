@@ -2,7 +2,7 @@ import math
 import cv2
 import numpy as np
 from pytesseract import pytesseract, Output
-from va_image import VA_Image
+from v6.va_image import VA_Image
 #if platform==win
 # pytesseract.pytesseract.tesseract_cmd = TESTRECT_EXE
 

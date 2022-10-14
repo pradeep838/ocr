@@ -1,8 +1,4 @@
-import sys
-sys.path.append('../v4')
-
-
-from va_api import VA_Action
+from v6.va_api import VA_Action
 import time,pytest
 import threading
 
@@ -15,7 +11,7 @@ def test_initiate():
     if not VA_Action.platform_dependent_services.isApplicationRunning('Organizer'):
         t= threading.Thread(target=VA_Action.launchApplication)
         t.start()
-        VA_Action.wait(15)
+        VA_Action.waitForTextToVisible('Import',0,TIMEOUT=120)
 
 def test_import_media_in_Eo():
     file_name=r'C:\Users\kumarp\Downloads\TestData\automationData\dataset1'

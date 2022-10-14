@@ -1,16 +1,21 @@
 
-from asyncio.log import logger
 from platform import platform
-from  va_core  import VA_Core
+from  v6.va_core  import VA_Core
 import pyautogui as pa,time
-from va_macservice import Mac_service
+from v6.va_macservice import Mac_service
 import platform
 import logging 
-logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
+import sys
+# logging.basicConfig(filename='example.txt', encoding='utf-8', level=logging.INFO)
+console=logging.StreamHandler(sys.stdout)
+logging.getLogger().addHandler(console)
+logging.getLogger().setLevel(logging.INFO)
 
 class VA_Action:
-    platform_dependent_services=None
     
+    platform_dependent_services=None
+    start_time=None
+
    
     @staticmethod
     def getPlatform():
@@ -99,14 +104,14 @@ class VA_Action:
 
     @staticmethod
     def wait(seconds):
-        logging.info("[seconds] %i",seconds)
+        logging.info("[Wait in (seconds)] %i",seconds)
         time.sleep(seconds)
         return VA_Action
 
     
     @staticmethod
     def isTextVisible(text,index=0):
-        logger.info("[isTextVisible] %i",text)
+        logging.info("[isTextVisible] %i",text)
         is_visible=VA_Core.isTextVisible(text,index)
         return is_visible
     
@@ -190,6 +195,24 @@ class VA_Action:
         VA_Action.platform_dependent_services.switchPreviousApplication()
         VA_Action.wait(wait)
         return VA_Action
+    
+    @staticmethod
+    def startTimer(message):
+        VA_Action.start_time=time.time()
+        logging.info('[Start Time]:for action\t %s : %i',message,VA_Action.start_time)
+        return VA_Action
+    
+    @staticmethod
+    def clearTimer(message):
+        elapsed_time=time.time()-VA_Action.start_time
+        logging.info('[Total Elapsed Time]:for action\t %s : %i',message,elapsed_time)
+        VA_Action.start_time=None
+        return VA_Action
+    @staticmethod
+    def waitUntilTextIsVisible(text,index=0,TIMEOUT=60,poll=1):
+        VA_Core.waitUntilTextIsVisible(text,index,TIMEOUT,poll)
+        return VA_Action
+
 
 # VA_Action.wait(5)
 # time.sleep(2)

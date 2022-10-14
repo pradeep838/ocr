@@ -1,7 +1,5 @@
-import sys
-sys.path.append('../v4')
+from v6.va_api import VA_Action
 
-from va_api import VA_Action
 import time,pytest
 import threading
 
@@ -29,8 +27,10 @@ def test_check_preference():
         .wait(5)\
         .clickCenterOfScreen()\
         .wait(4)\
+        .startTimer('Instant Fix')\
         .clickOnText('Fix')\
         .clickUsingAxis("Done",0,0,-350)\
         .clickUsingAxis('Color',0,0,-80)\
         .clickOnText('Save')\
+        .clearTimer('Instant Fix')\
         .clickOnText('Back')

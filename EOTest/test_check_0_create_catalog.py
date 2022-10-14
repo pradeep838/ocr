@@ -1,10 +1,11 @@
-import sys
-sys.path.append('../v4')
+# import sys
+# sys.path.append('./../v6')
 
-from va_api import VA_Action
+from v6.va_api import VA_Action
 import time,pytest
 import threading
 
+print(VA_Action.getPlatform())
 def getRandomString(text=''):
     return text+'_au'+str(time.time()).replace(".","")
 
@@ -14,7 +15,7 @@ def test_initiate():
     if not VA_Action.platform_dependent_services.isApplicationRunning('Organizer'):
         t= threading.Thread(target=VA_Action.launchApplication)
         t.start()
-        VA_Action.wait(15)
+        VA_Action.waitForTextToVisible('Places',0,TIMEOUT=120)
 
 def test_create_new_catalog():
     catalog_name=getRandomString('catalog')

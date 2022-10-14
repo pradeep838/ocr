@@ -18,9 +18,10 @@ class VA_Pixel:
 
     @staticmethod
     def writelog(text):
-        with open('./logs/temp.txt','a') as f:
-            f.write(text)
-            f.flush()
+        pass
+        # with open('./logs/temp.txt','a') as f:
+        #     f.write(text)
+        #     f.flush()
 
     # return a pixel matrix having row=Max_Rows and cols=Max_cols 
     # and each pixel[i][j] will map to ocr_extracted_text at location j,i 

@@ -1,4 +1,7 @@
+
+
 from v6.va_api import VA_Action
+
 import time,pytest
 import threading
 
@@ -11,11 +14,20 @@ def test_initiate():
     if not VA_Action.platform_dependent_services.isApplicationRunning('Organizer'):
         t= threading.Thread(target=VA_Action.launchApplication)
         t.start()
-        VA_Action.wait(15)
+        VA_Action.wait(8)
 
-# @pytest.mark.skip("in progress")
-def test_check_preference():
-    VA_Action.clickOnText("Elements Organizer")\
-        .clickOnText("Preferences")\
-        .waitForTextToVisible("OK")\
-        .clickOnText('OK')
+
+
+
+def test_slide_show_export():
+    VA_Action.clickCenterOfScreen()\
+    .clickOnText('Slideshow')\
+    .waitForTextToVisible('Back')\
+    .clickOnText('Save')\
+    .enterText(getRandomString('Export'))\
+    .pressEnter()\
+    .clickOnText('Export')\
+    .clickOnText('Export video to local disk')\
+    .waitForTextToVisible('OK')\
+    .enterText(getRandomString('ExportedSlideshow'))\
+    .clickOnText('OK')

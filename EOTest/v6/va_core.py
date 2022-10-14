@@ -1,10 +1,10 @@
 
 import math
-from va_image import VA_Image
-from va_ocr import VA_OCR
-from va_pixel import VA_Pixel
+from v6.va_image import VA_Image
+from v6.va_ocr import VA_OCR
+from v6.va_pixel import VA_Pixel
 import time
-import logging
+import logging,functools
 
 
 floor=math.floor
@@ -86,8 +86,8 @@ class VA_Core:
       
         ocr_recognized_text=VA_Core.scale_down_cordinate_by(dict_recognized_texts_tuples,config['fx'],config['fy'])
         #log somewhere ocr_recognized text
-        with open('temp.txt','w') as f:
-            f.write(str(ocr_recognized_text))
+        # with open('temp.txt','w') as f:
+        #     f.write(str(ocr_recognized_text))
 
         #check if all words is present in ocr extracted text if not then try for another scale factor
 
@@ -103,14 +103,29 @@ class VA_Core:
                 # #check with another psm value
                 #     logging.debug("retrying text not found on UI:",text)
 
-        with open('logs/temp.txt','w') as f:
-            f.write(str(ocr_recognized_text))
+        # with open('/logs/temp.txt','w') as f:
+        #     f.write(str(ocr_recognized_text))
         
         all_location_of_a_text=VA_Pixel.getLocation(text,ocr_recognized_text)
         return all_location_of_a_text
     
         # import pyautogui as pa
         # pa.moveTo(l[1],l[2])
+    @staticmethod
+    def compare(cord1,cord2):
+        if (cord1[0]<=cord2[0] and cord1[1]<=cord2[1]):
+            return -1
+        elif (cord1[0]<=cord2[0] and cord1[1]>=cord2[1]):
+            return 1
+        elif (cord1[0]>=cord2[0] and cord1[1]>=cord2[1]):return 1
+        elif(cord1[0]>=cord2[0] and cord1[1]<=cord2[1]):return -1
+        else:return 0
+    
+    def getSorted(dict):
+        for key,value in dict.items():
+            dict[key]=sorted(value,key=functools.cmp_to_key(VA_Core.compare),reverse=True)
+        return dict
+
     @staticmethod
     def getTextLocation(text,index=0):
         all_location_dict=VA_Core.getAllLocationOfAText(text)
@@ -119,6 +134,7 @@ class VA_Core:
             logging.debug("Not found")
             return  "NOT_FOUND"
         elif len(all_location_dict[text])>index:
+            all_location_dict=VA_Core.getSorted(all_location_dict)
             return all_location_dict[text][index]
         else:
             logging.debug("Not found text at index but multiple found  {} |".format(str(all_location_dict[text])))
@@ -149,6 +165,19 @@ class VA_Core:
             return "NOT_FOUND_AFTER_WAITING"
         
         return location_tuple
+    @staticmethod
+    def waitUntilTextIsVisible(text,index=0,TIMEOUT=60,poll=3):
+        remaining_time=TIMEOUT
+        is_found=True
+        location_tuple=None
+        while  (remaining_time>0):
+            is_found=VA_Core.isTextVisible(text,index)
+            if not is_found:break
+            remaining_time-=poll
+        if is_found:
+            logging.info('text %s at %i is still visible',text,index)
+            raise Exception('text is still visislble')
+        return False
 
     
 

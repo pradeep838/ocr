@@ -1,7 +1,7 @@
-import sys
-sys.path.append('../v4')
 
-from va_api import VA_Action
+
+from v6.va_api import VA_Action
+
 import time,pytest
 import threading
 

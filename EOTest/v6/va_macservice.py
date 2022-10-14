@@ -1,6 +1,6 @@
 
 import pyautogui as pa
-from va_core import VA_Core
+from v6.va_core import VA_Core
 import subprocess,os
 
 class Mac_service:
@@ -36,7 +36,7 @@ class Mac_service:
           filter_process=subprocess.check_output('ps aux | awk \'{if ($8 ="R") print}\' | grep \''+application_name+'\'',shell=True)
           procinfo=str(filter_process).split('\\n')
           print(("[Mac_services] running process", procinfo))
-          if len(procinfo)>3:return True
+          if len(procinfo)>4:return True
           return False
     @staticmethod
     def launchApplication(ecec_path): 
