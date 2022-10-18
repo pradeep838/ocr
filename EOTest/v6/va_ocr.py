@@ -4,7 +4,8 @@ import numpy as np
 from pytesseract import pytesseract, Output
 from v6.va_image import VA_Image
 #if platform==win
-# pytesseract.pytesseract.tesseract_cmd = TESTRECT_EXE
+TESTRECT_EXE=r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.tesseract_cmd = TESTRECT_EXE
 
 floor=math.floor
 

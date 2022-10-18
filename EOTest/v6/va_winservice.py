@@ -3,10 +3,13 @@ import pyautogui as pa
 from v6.va_core import VA_Core
 import subprocess,os
 
-class Mac_service:
+class Win_service:
     
     def __init__(self) -> None:
         pass
+
+    def pressCtrlA():
+        pa.hotkey('ctrl','a')
     
     @staticmethod
     def switchApplication(application_name):
@@ -24,12 +27,12 @@ class Mac_service:
     @staticmethod
     def switchPreviousApplication():
         counter=1
-        pa.keyDown('command')
+        pa.keyDown('alt')
         pa.press('tab')
         pa.sleep(1)  
-        pa.keyUp('command')
+        pa.keyUp('alt')
         # pa.press('option')
-        print('[Mac_services]  switched to previous application ')
+        print('[win_services]  switched to previous application ')
     
     @staticmethod
     def isApplicationRunning(application_name):
@@ -51,5 +54,6 @@ class Mac_service:
 
 
 # print(Mac_service.launchApplication('Chrome2'))
+# Win_service.switchPreviousApplication()
 
 

@@ -9,7 +9,7 @@ import logging,functools
 
 floor=math.floor
 
-config={"psm_value":11,"fx":1,"fy":1,"screenShotPath":"screenshot/"}
+config={"psm_value":11,"fx":1.7,"fy":1.7,"screenShotPath":"screenshot/"}
 
 class VA_Core:
 
@@ -103,10 +103,13 @@ class VA_Core:
                 # #check with another psm value
                 #     logging.debug("retrying text not found on UI:",text)
 
-        # with open('/logs/temp.txt','w') as f:
+        # with open('./logs/temp.txt','w') as f:
         #     f.write(str(ocr_recognized_text))
         
         all_location_of_a_text=VA_Pixel.getLocation(text,ocr_recognized_text)
+        with open('./logs/temp.txt','a') as f:
+            f.write(str(all_location_of_a_text))
+            f.flush()
         return all_location_of_a_text
     
         # import pyautogui as pa

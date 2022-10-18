@@ -1,6 +1,7 @@
 # import sys
 # sys.path.append('./../v6')
 
+from multiprocessing.connection import wait
 from v6.va_api import VA_Action
 import time,pytest
 import threading
@@ -21,13 +22,15 @@ def test_create_new_catalog():
     catalog_name=getRandomString('catalog')
     # switchApplication('2023 Organizer')\
     VA_Action\
-    .clickOnText('Events')\
-    .clickOnText('File')\
-    .clickOnText("Manage Catalogs")\
-    .clickOnText('New')\
-    .enterText(catalog_name)\
-    .pressEnter()\
-    .waitForTextToVisible('Skip',TIMEOUT=180,poll=10)\
-    .clickOnText('Skip',waitTime=5)
-        
-
+    .selectAll()\
+    .clickOnText('Upload to Cloud')\
+    .wait(10)\
+    .clickOnText('Upload',1)\
+    .waitUntilTextIsVisible('Opens Elements Web')\
+    .clickOnText('Upload',0)\
+    .waitForTextToVisible('Done')\
+    .clickUsingAxis('Done',0,80,0)\
+    .wait(10)\
+    .clickUsingAxis('Today',0,0,150)\
+    .switchApplication("organizer",4)\
+    .clickOnText('Done')

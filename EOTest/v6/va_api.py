@@ -3,6 +3,7 @@ from platform import platform
 from  v6.va_core  import VA_Core
 import pyautogui as pa,time
 from v6.va_macservice import Mac_service
+from v6.va_winservice import Win_service
 import platform
 import logging 
 import sys
@@ -23,8 +24,8 @@ class VA_Action:
 
    
 
-    if (getPlatform()=='Darwin'):
-        platform_dependent_services=Mac_service
+    if (platform.uname().system=='Windows'):
+        platform_dependent_services=Win_service
 
     if platform_dependent_services==None:
         logging.error('Need to initialize platform services either for mac and window,Terminationg the test, Please ensure that you are providing platform dependent action in VA_Action class.')
@@ -42,7 +43,7 @@ class VA_Action:
 
     
     @staticmethod
-    def pyAutoGuiCorrectionFactor():return 2
+    def pyAutoGuiCorrectionFactor():return 1
     
     @staticmethod
     def transFormPixel(cord_tuple):
@@ -212,6 +213,11 @@ class VA_Action:
     def waitUntilTextIsVisible(text,index=0,TIMEOUT=60,poll=1):
         VA_Core.waitUntilTextIsVisible(text,index,TIMEOUT,poll)
         return VA_Action
+    
+    @staticmethod
+    def selectAll():
+        VA_Action.platform_dependent_services.pressCtrlA()
+        return VA_Action
 
 
 # VA_Action.wait(5)
@@ -221,3 +227,5 @@ class VA_Action:
 # # VA_Action.clickUsingAxis("Help",0,150,0)
 # VA_Action.wait(10)
 # VA_Action.platform_dependent_services.switchApplication('Elements 2023 Organizer')
+# def test1():
+#     print(VA_Action.getPlatform(),'test')
