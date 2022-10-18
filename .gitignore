@@ -7,3 +7,5 @@
 .DS_Store
 temp.txt
 *.log
+*.png
+*.pyc

@@ -23,14 +23,14 @@ def test_share_via_email():
     VA_Action.clickCenterOfScreen()\
     .clickOnText('Edit')\
     .clickOnText('Contact Book')\
-    .clickOnText('Contact')\
+    .clickOnText('New Contact')\
     .enterText('firstNamek')\
     .pressKey('tab')\
     .enterText('lastName')\
     .pressKey('tab')\
     .enterText('kumarp1@adobe.com')\
-    .clickOnText('OK')\
-    .clickOnText('OK')\
+    .clickOnText('OK',0)\
+    .clickOnText('OK',1)\
     .clickOnText('Share')\
     .clickOnText('Email')\
     .clickOnText('Next')\

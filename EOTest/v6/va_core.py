@@ -123,7 +123,7 @@ class VA_Core:
     
     def getSorted(dict):
         for key,value in dict.items():
-            dict[key]=sorted(value,key=functools.cmp_to_key(VA_Core.compare),reverse=True)
+            dict[key]=sorted(value,key=functools.cmp_to_key(VA_Core.compare))
         return dict
 
     @staticmethod
