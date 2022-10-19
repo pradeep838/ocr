@@ -216,6 +216,22 @@ class VA_Action:
         return VA_Action
     
     @staticmethod
+    def assertVisiblity(text,index=0):
+        is_visible=VA_Action.isTextVisible(text,index)
+        if not is_visible:
+            raise Exception('text is not visible a {}[{}]'.format(text,index))
+        logging.info("[Assertion]:text is not visible\t %s for index[%i]",text,index)
+        return VA_Action
+    
+    @staticmethod
+    def assertNotVisible(text,index=0):
+        is_visible=VA_Action.isTextVisible(text,index)
+        if is_visible:
+            raise Exception('text is not visible a {}[{}]'.format(text,index))
+        logging.info("[assertNotVisible]:text is visible\t %s for index [%i]",text,index)
+        return VA_Action
+
+    @staticmethod
     def selectAll():
         VA_Action.platform_dependent_services.pressCtrlA()
         return VA_Action
