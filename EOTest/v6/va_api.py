@@ -112,7 +112,7 @@ class VA_Action:
     
     @staticmethod
     def isTextVisible(text,index=0):
-        logging.info("[isTextVisible] %i",text)
+        logging.info("[isTextVisible] %s at index %i",text,index)
         is_visible=VA_Core.isTextVisible(text,index)
         return is_visible
     
@@ -209,7 +209,7 @@ class VA_Action:
         logging.info('[Total Elapsed Time]:for action\t %s : %i',message,elapsed_time)
         VA_Action.start_time=None
         return VA_Action
-        
+
     @staticmethod
     def waitUntilTextIsVisible(text,index=0,TIMEOUT=60,poll=1):
         VA_Core.waitUntilTextIsVisible(text,index,TIMEOUT,poll)
@@ -219,8 +219,9 @@ class VA_Action:
     def assertVisiblity(text,index=0):
         is_visible=VA_Action.isTextVisible(text,index)
         if not is_visible:
+            logging.info("[Assertion]:text is not visible\t %s for index[%i]",text,index)
             raise Exception('text is not visible a {}[{}]'.format(text,index))
-        logging.info("[Assertion]:text is not visible\t %s for index[%i]",text,index)
+        
         return VA_Action
     
     @staticmethod

@@ -18,7 +18,7 @@ def test_initiate():
         t.start()
         VA_Action.waitForTextToVisible('Places',0,TIMEOUT=120)
 
-def test_create_new_catalog():
+def test_upload_media_to_Elements_web():
     catalog_name=getRandomString('catalog')
     # switchApplication('2023 Organizer')\
     VA_Action\

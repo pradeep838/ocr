@@ -18,7 +18,7 @@ def test_initiate():
         t.start()
         VA_Action.waitForTextToVisible('Places',0,TIMEOUT=120)
 
-def test_create_new_catalog():
+def test_import_from_elements_web():
     catalog_name=getRandomString('catalog')
     # switchApplication('2023 Organizer')\
     VA_Action\
@@ -26,9 +26,16 @@ def test_create_new_catalog():
     .clickOnText('From the Cloud')\
     .waitForTextToVisible('Import from the cloud')\
     .waitUntilTextIsVisible('Loading')\
-    .clickUsingAxis('Today',0,0,150)\
+    .clickUsingAxis('Sept 2022',0,0,150)\
+    .clickUsingAxis('Sept 2022',0,300,150)\
     .wait(2)\
-    .clickOnText('Import',2)
+    .clickOnText('Import',2)\
+    .waitUntilTextIsVisible('Import from the cloud',poll=1)\
+    .waitUntilTextIsVisible('Stop',poll=1)\
+    .assertVisiblity('Last Import')\
+    .assertVisiblity('2 Items')\
+    .clickOnText('Media')\
+    .wait(2)
 
 
 
