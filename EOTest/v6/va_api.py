@@ -209,6 +209,7 @@ class VA_Action:
         logging.info('[Total Elapsed Time]:for action\t %s : %i',message,elapsed_time)
         VA_Action.start_time=None
         return VA_Action
+        
     @staticmethod
     def waitUntilTextIsVisible(text,index=0,TIMEOUT=60,poll=1):
         VA_Core.waitUntilTextIsVisible(text,index,TIMEOUT,poll)

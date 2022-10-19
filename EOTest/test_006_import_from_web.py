@@ -22,13 +22,20 @@ def test_create_new_catalog():
     catalog_name=getRandomString('catalog')
     # switchApplication('2023 Organizer')\
     VA_Action\
-    .selectAll()\
-    .clickOnText('Upload to Cloud')\
-    .waitForTextToVisible('Upload to the cloud')\
-    .clickOnText('Upload',1)\
-    .waitForTextToVisible('Done')\
-    .clickUsingAxis('Done',0,80,0)\
-    .waitForTextToVisible('Today')\
+    .clickOnText('Import')\
+    .clickOnText('From the Cloud')\
+    .waitForTextToVisible('Import from the cloud')\
+    .waitUntilTextIsVisible('Loading')\
     .clickUsingAxis('Today',0,0,150)\
-    .switchApplication("organizer",4)\
-    .clickOnText('Done')
+    .wait(2)\
+    .clickOnText('Import',2)
+
+
+
+    # .clickOnText('Upload',1)\
+    # .waitForTextToVisible('Done')\
+    # .clickUsingAxis('Done',0,80,0)\
+    # .waitForTextToVisible('Today')\
+    # .clickUsingAxis('Today',0,0,150)\
+    # .switchApplication("organizer",4)\
+    # .clickOnText('Done')
