@@ -1,9 +1,9 @@
 
 from platform import platform
-from  v6.va_core  import VA_Core
+from  va_core  import VA_Core
 import pyautogui as pa,time
-from v6.va_macservice import Mac_service
-from v6.va_winservice import Win_service
+from va_macservice import Mac_service
+from va_winservice import Win_service
 import platform
 import logging 
 import sys

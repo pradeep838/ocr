@@ -9,7 +9,7 @@
 #     screenPhysicalHeight
 # }
 import math
-from  v6.va_pyautogui_wrapper import VA_PyAutoGUI_Wrapper
+from  va_pyautogui_wrapper import VA_PyAutoGUI_Wrapper
 import numpy as np
 import cv2
 
@@ -51,6 +51,8 @@ class VA_Image:
         cv2.adaptiveThreshold(cv2.bilateralFilter(img, 9, 75, 75), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
 
         cv2.adaptiveThreshold(cv2.medianBlur(img, 3), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
+
+        
         return img
 
     # @staticmethod

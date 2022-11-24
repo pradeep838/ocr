@@ -1,8 +1,8 @@
 
 import math
-from v6.va_image import VA_Image
-from v6.va_ocr import VA_OCR
-from v6.va_pixel import VA_Pixel
+from va_image import VA_Image
+from va_ocr import VA_OCR
+from va_pixel import VA_Pixel
 import time
 import logging,functools
 

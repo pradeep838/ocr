@@ -1,0 +1,363 @@
+# -*- coding: cp1252 -*-
+Warning: the whole hierarchy does not fit into depth=10. Increase depth parameter value or set it to None (unlimited, may freeze in case of very large number of elements).
+If the whole hierarchy fits into depth and max_width values, best_match names are dumped.
+Control Identifiers:
+
+Dialog - 'Adobe Elements 2022 Organizer'    (L0, T0, R1920, B1008)
+.by(name='Adobe Elements 2022 Organizer', class_name='PtMainWindow', control_type='Window')
+   | 
+   | Dialog - 'Elements Organizer'    (L650, T350, R1250, B795)
+   | .by(name='Elements Organizer', class_name='ImportProgressDlg', control_type='Window')
+   |    | 
+   |    | GroupBox -     (L650, T350, R1250, B373)
+   |    | .by(class_name='TitleWidget', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L650, T373, R655, B779)
+   |    | .by(class_name='SideWidget', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L1245, T373, R1250, B779)
+   |    | .by(class_name='SideWidget', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L655, T373, R1245, B779)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    |    | 
+   |    |    | Image -     (L670, T388, R830, B548)
+   |    |    | .by(class_name='QLabel', control_type='Image')
+   |    |    | 
+   |    |    | Custom -     (L870, T404, R1118, B548)
+   |    |    | .by(class_name='QStackedWidget', control_type='Custom')
+   |    |    |    | 
+   |    |    |    | GroupBox -     (L870, T404, R1118, B548)
+   |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    | 
+   |    |    |    |    | Image -     (L870, T404, R884, B418)
+   |    |    |    |    | .by(class_name='QLabel', control_type='Image')
+   |    |    |    |    | 
+   |    |    |    |    | Static - '19 Media files were skipped because they are already present in the catalog.'    (L892, T404, R1118, B432)
+   |    |    |    |    | .by(name='19 Media files were skipped because they are already present in the catalog.', class_name='QLabel', control_type='Text')
+   |    |    | 
+   |    |    | Button - 'OK'    (L1150, T404, R1230, B430)
+   |    |    | .by(name='OK', class_name='QPushButton', control_type='Button')
+   |    |    | 
+   |    |    | TreeView -     (L670, T564, R1230, B764)
+   |    |    | .by(class_name='QTreeWidget', control_type='Tree')
+   |    |    |    | 
+   |    |    |    | Header - 'Reason'    (L671, T565, R903, B587)
+   |    |    |    | .by(name='Reason', control_type='Header')
+   |    |    |    | 
+   |    |    |    | Header - 'File'    (L903, T565, R1219, B587)
+   |    |    |    | .by(name='File', control_type='Header')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'The file already exists in the catalog'    (L701, T587, R903, B603)
+   |    |    |    | .by(name='The file already exists in the catalog', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC0260.JPG'    (L903, T587, R1219, B603)
+   |    |    |    | .by(name='C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC0260.JPG', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'The file already exists in the catalog'    (L701, T603, R903, B619)
+   |    |    |    | .by(name='The file already exists in the catalog', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC0260_edited-1.jpg'    (L903, T603, R1219, B619)
+   |    |    |    | .by(name='C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC0260_edited-1.jpg', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'The file already exists in the catalog'    (L701, T619, R903, B635)
+   |    |    |    | .by(name='The file already exists in the catalog', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC1618_edited-1.JPG'    (L903, T619, R1219, B635)
+   |    |    |    | .by(name='C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC1618_edited-1.JPG', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'The file already exists in the catalog'    (L701, T635, R903, B651)
+   |    |    |    | .by(name='The file already exists in the catalog', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | TreeItem - 'C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC1618_edited-5.jpg'    (L903, T635, R1219, B651)
+   |    |    |    | .by(name='C:/Users/kumarp/OneDrive - Adobe/Pictures/dummy/_DSC1618_edited-5.jpg', control_type='TreeItem')
+   |    |    |    | 
+   |    |    |    | **********
+   |    |    |    | Max children output limit (10) has been reached. Set a larger max_width value or use max_width=None to see all children.
+   |    |    |    | **********
+   |    | 
+   |    | GroupBox -     (L650, T779, R1250, B795)
+   |    | .by(class_name='BottomWidget', control_type='Group')
+   |    | 
+   |    | Static -     (L650, T350, R750, B380)
+   |    | .by(class_name='QLabel', control_type='Text')
+   | 
+   | Dialog - 'PhotoshopElementsOrganizer'    (L850, T414, R1050, B514)
+   | .by(name='PhotoshopElementsOrganizer', class_name='PtNoteDialog', control_type='Window')
+   |    | 
+   |    | GroupBox -     (L850, T414, R1050, B514)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    |    | 
+   |    |    | Static -     (L850, T414, R1050, B514)
+   |    |    | .by(class_name='QLabel', control_type='Text')
+   | 
+   | GroupBox -     (L3, T37, R1917, B77)
+   | .by(class_name='QWidget', control_type='Group')
+   |    | 
+   |    | Button - 'Import'    (L13, T37, R114, B77)
+   |    | .by(name='Import', class_name='PtToolButton', control_type='Button')
+   |    | 
+   |    | GroupBox -     (L717, T37, R1097, B77)
+   |    | .by(class_name='PtRoomSelector', control_type='Group')
+   |    |    | 
+   |    |    | CheckBox - 'Media'    (L717, T37, R808, B77)
+   |    |    | .by(name='Media', class_name='PtRoomButton', control_type='CheckBox')
+   |    |    | 
+   |    |    | CheckBox - 'People'    (L808, T37, R906, B77)
+   |    |    | .by(name='People', class_name='PtRoomButton', control_type='CheckBox')
+   |    |    | 
+   |    |    | CheckBox - 'Places'    (L906, T37, R1000, B77)
+   |    |    | .by(name='Places', class_name='PtRoomButton', control_type='CheckBox')
+   |    |    | 
+   |    |    | CheckBox - 'Events'    (L1000, T37, R1097, B77)
+   |    |    | .by(name='Events', class_name='PtRoomButton', control_type='CheckBox')
+   |    | 
+   |    | GroupBox -     (L1711, T37, R1913, B77)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    |    | 
+   |    |    | Button - 'Create'    (L1711, T37, R1811, B77)
+   |    |    | .by(name='Create', class_name='PtToolButton', control_type='Button')
+   |    |    | 
+   |    |    | GroupBox -     (L1811, T37, R1821, B77)
+   |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    | 
+   |    |    | Button - 'Share'    (L1821, T37, R1913, B77)
+   |    |    | .by(name='Share', class_name='PtToolButton', control_type='Button')
+   |    | 
+   |    | GroupBox -     (L114, T37, R717, B77)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L1097, T37, R1699, B77)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L3, T37, R13, B77)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L1699, T37, R1711, B77)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L1913, T37, R1917, B77)
+   |    | .by(class_name='QWidget', control_type='Group')
+   | 
+   | GroupBox -     (L3, T986, R1917, B1008)
+   | .by(class_name='BottomWidget', control_type='Group')
+   |    | 
+   |    | Static -     (L144, T991, R1657, B1009)
+   |    | .by(class_name='NotificationStatusWidget', control_type='Text')
+   |    | 
+   |    | Static -     (L1657, T988, R1799, B1006)
+   |    | .by(class_name='PtLabel', control_type='Text')
+   |    | 
+   |    | Static - 'AutomatedCatalog1'    (L1809, T988, R1892, B1006)
+   |    | .by(name='AutomatedCatalog1', class_name='PtLabel', control_type='Text')
+   |    | 
+   |    | GroupBox -     (L8, T988, R144, B1006)
+   |    | .by(class_name='QWidget', control_type='Group')
+   |    |    | 
+   |    |    | GroupBox -     (L13, T988, R144, B1006)
+   |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    | 
+   |    |    |    | GroupBox -     (L50, T988, R144, B1006)
+   |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    | 
+   |    |    |    |    | Custom -     (L55, T990, R58, B1004)
+   |    |    |    |    | .by(class_name='QFrame', control_type='Custom')
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'Jul 2010 - Oct 2022'    (L63, T991, R144, B1002)
+   |    |    |    |    | .by(name='Jul 2010 - Oct 2022', class_name='QLabel', control_type='Text')
+   |    |    |    | 
+   |    |    |    | Static - '19 Items'    (L13, T991, R50, B1002)
+   |    |    |    | .by(name='19 Items', class_name='QLabel', control_type='Text')
+   | 
+   | GroupBox -     (L4, T77, R1916, B986)
+   | .by(class_name='PtDesktop', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L4, T77, R104, B107)
+   |    | .by(class_name='PtShareOptions', control_type='Group')
+   |    | 
+   |    | GroupBox -     (L4, T77, R104, B107)
+   |    | .by(class_name='PtCreateOptions', control_type='Group')
+   |    | 
+   |    | Custom -     (L4, T77, R1916, B986)
+   |    | .by(class_name='QStackedWidget', control_type='Custom')
+   |    |    | 
+   |    |    | GroupBox -     (L4, T77, R1916, B986)
+   |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    | 
+   |    |    |    | GroupBox -     (L4, T77, R1916, B986)
+   |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    | 
+   |    |    |    |    | GroupBox -     (L4, T928, R1916, B986)
+   |    |    |    |    | .by(class_name='PtActionPanel', control_type='Group')
+   |    |    |    |    |    | 
+   |    |    |    |    |    | GroupBox -     (L4, T928, R1916, B986)
+   |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    | 
+   |    |    |    |    |    |    | Custom -     (L4, T928, R1916, B986)
+   |    |    |    |    |    |    | .by(class_name='QStackedWidget', control_type='Custom')
+   |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    | GroupBox -     (L4, T928, R1916, B986)
+   |    |    |    |    |    |    |    | .by(class_name='PtMediaRoomToolbar', control_type='Group')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | GroupBox -     (L1845, T929, R1916, B986)
+   |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | CheckBox - 'Keyword/Info'    (L1845, T931, R1911, B983)
+   |    |    |    |    |    |    |    |    |    | .by(name='Keyword/Info', class_name='PtActionButton', control_type='CheckBox')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | GroupBox -     (L4, T929, R1603, B986)
+   |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L62, T929, R63, B986)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Button - 'Undo'    (L71, T931, R115, B983)
+   |    |    |    |    |    |    |    |    |    | .by(name='Undo', class_name='PtActionButtonWithMenu', control_type='Button')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Button - 'Rotate'    (L123, T931, R167, B983)
+   |    |    |    |    |    |    |    |    |    | .by(name='Rotate', class_name='PtActionButtonWithMenu', control_type='Button')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L175, T929, R176, B986)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Button - 'Add Location'    (L184, T931, R246, B983)
+   |    |    |    |    |    |    |    |    |    | .by(name='Add Location', class_name='PtActionButton', control_type='Button')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Button - 'Add Event'    (L254, T931, R304, B983)
+   |    |    |    |    |    |    |    |    |    | .by(name='Add Event', class_name='PtActionButton', control_type='Button')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L312, T929, R313, B986)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Button - 'Instant Fix'    (L321, T931, R373, B983)
+   |    |    |    |    |    |    |    |    |    | .by(name='Instant Fix', class_name='PtActionButton', control_type='Button')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Button - 'Editor'    (L381, T931, R425, B983)
+   |    |    |    |    |    |    |    |    |    | .by(name='Editor', class_name='PtActionButtonWithMenu', control_type='Button')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L433, T929, R434, B986)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | **********
+   |    |    |    |    |    |    |    |    |    | Max children output limit (10) has been reached. Set a larger max_width value or use max_width=None to see all children.
+   |    |    |    |    |    |    |    |    |    | **********
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | Custom -     (L4, T928, R1916, B929)
+   |    |    |    |    |    |    |    |    | .by(class_name='QFrame', control_type='Custom')
+   |    |    |    |    | 
+   |    |    |    |    | Custom -     (L4, T77, R1916, B928)
+   |    |    |    |    | .by(class_name='PtSplitter', control_type='Custom')
+   |    |    |    |    |    | 
+   |    |    |    |    |    | Custom -     (L4, T77, R1916, B928)
+   |    |    |    |    |    | .by(class_name='PtSplitter', control_type='Custom')
+   |    |    |    |    |    |    | 
+   |    |    |    |    |    |    | Custom -     (L240, T77, R1916, B928)
+   |    |    |    |    |    |    | .by(class_name='QStackedWidget', control_type='Custom')
+   |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    | GroupBox -     (L240, T77, R1916, B928)
+   |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | GroupBox -     (L240, T77, R1916, B115)
+   |    |    |    |    |    |    |    |    | .by(class_name='PtGridToolBar', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L1817, T78, R1906, B113)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='PtMediaCurationWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L240, T77, R337, B115)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L337, T77, R518, B115)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L1654, T77, R1807, B115)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Custom -     (L966, T83, R1189, B108)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QStackedWidget', control_type='Custom')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | Custom -     (L240, T115, R1916, B116)
+   |    |    |    |    |    |    |    |    | .by(class_name='QFrame', control_type='Custom')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | Custom -     (L240, T116, R1916, B928)
+   |    |    |    |    |    |    |    |    | .by(class_name='PtSplitter', control_type='Custom')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L240, T116, R1916, B928)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    | 
+   |    |    |    |    |    |    | GroupBox -     (L4, T77, R239, B928)
+   |    |    |    |    |    |    | .by(class_name='PtOrganizePane', control_type='Group')
+   |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    | GroupBox -     (L4, T77, R239, B107)
+   |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | CheckBox - 'Albums'    (L4, T77, R99, B107)
+   |    |    |    |    |    |    |    |    | .by(name='Albums', class_name='PtPaneTabButton', control_type='CheckBox')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | CheckBox - 'Folders'    (L134, T77, R229, B107)
+   |    |    |    |    |    |    |    |    | .by(name='Folders', class_name='PtPaneTabButton', control_type='CheckBox')
+   |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    | Custom -     (L4, T127, R239, B928)
+   |    |    |    |    |    |    |    | .by(class_name='QStackedWidget', control_type='Custom')
+   |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    | GroupBox -     (L4, T127, R239, B928)
+   |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | Custom -     (L4, T159, R239, B928)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QStackedWidget', control_type='Custom')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L4, T127, R164, B287)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='PtFolderViewManager', control_type='Group')
+   |    |    |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    |    |    | GroupBox -     (L4, T132, R234, B154)
+   |    |    |    |    |    |    |    |    |    | .by(class_name='QWidget', control_type='Group')
+   |    |    |    |    |    |    |    | 
+   |    |    |    |    |    |    |    | GroupBox -     (L4, T107, R239, B117)
+   |    |    |    |    |    |    |    | .by(class_name='PtHDividerWithPointerWedge', control_type='Group')
+   |    |    |    |    |    |    | 
+   |    |    |    |    |    |    | Thumb -     (L237, T77, R242, B928)
+   |    |    |    |    |    |    | .by(class_name='PtSplitterHandle', control_type='Thumb')
+   | 
+   | GroupBox -     (L3, T0, R1917, B37)
+   | .by(class_name='PtMainWindowTitleWidget', control_type='Group')
+   |    | 
+   |    | Button -     (L1863, T0, R1910, B20)
+   |    | .by(class_name='PtToolButton', control_type='Button')
+   |    | 
+   |    | Button -     (L1808, T0, R1836, B20)
+   |    | .by(class_name='PtToolButton', control_type='Button')
+   |    | 
+   |    | Button -     (L1836, T0, R1863, B20)
+   |    | .by(class_name='PtToolButton', control_type='Button')
+   |    | 
+   |    | Image -     (L15, T4, R39, B30)
+   |    | .by(class_name='PtLabel', control_type='Image')
+   |    | 
+   |    | Button - 'Search'    (L1695, T2, R1776, B32)
+   |    | .by(name='Search', class_name='PtToolButton', control_type='Button')
+   |    | 
+   |    | Menu -     (L49, T8, R240, B31)
+   |    | .by(class_name='QMenuBar', control_type='MenuBar')
+   |    |    | 
+   |    |    | MenuItem - 'File'    (L49, T8, R82, B27)
+   |    |    | .by(name='File', class_name='QAction', control_type='MenuItem')
+   |    |    | 
+   |    |    | MenuItem - 'Edit'    (L82, T8, R119, B27)
+   |    |    | .by(name='Edit', class_name='QAction', control_type='MenuItem')
+   |    |    | 
+   |    |    | MenuItem - 'Find'    (L119, T8, R157, B27)
+   |    |    | .by(name='Find', class_name='QAction', control_type='MenuItem')
+   |    |    | 
+   |    |    | MenuItem - 'View'    (L157, T8, R200, B27)
+   |    |    | .by(name='View', class_name='QAction', control_type='MenuItem')
+   |    |    | 
+   |    |    | MenuItem - 'Help'    (L200, T8, R240, B27)
+   |    |    | .by(name='Help', class_name='QAction', control_type='MenuItem')
+   | 
+   | TreeView -     (L0, T0, R0, B0)
+   | .by(class_name='SearchSuggestionList', control_type='Tree')
+   | 
+   | GroupBox -     (L3, T77, R4, B986)
+   | .by(class_name='SideWidget', control_type='Group')
+   | 
+   | GroupBox -     (L1916, T77, R1917, B986)
+   | .by(class_name='SideWidget', control_type='Group')

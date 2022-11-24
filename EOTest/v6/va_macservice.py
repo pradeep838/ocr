@@ -1,6 +1,6 @@
 
 import pyautogui as pa
-from v6.va_core import VA_Core
+from va_core import VA_Core
 import subprocess,os
 
 class Mac_service:

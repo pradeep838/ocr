@@ -1,6 +1,6 @@
 
 import pyautogui as pa
-from v6.va_core import VA_Core
+from va_core import VA_Core
 import subprocess,os
 
 class Win_service:
@@ -46,8 +46,9 @@ class Win_service:
     def launchApplication(ecec_path): 
         # status=subprocess.call(' open /Applications/Adobe\ Photoshop\ Elements\ 2023.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer')
        
-        os.system('/Applications/Adobe\ Photoshop\ Elements\ 2023.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer')
+        # os.system('/Applications/Adobe\ Photoshop\ Elements\ 2023.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer.app/Contents/MacOS/Adobe\ Elements\ 2023\ Organizer')
         # print(status)
+        pass
           
         
 

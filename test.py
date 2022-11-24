@@ -104,6 +104,6 @@
 # #     cv2.imshow("mss",cv2.imread('monitor-1.png'))
 # #     cv2.waitKey(0)
 
-from v6.va_api import VA_Action 
-def test_1():
-    print(VA_Action.getPlatform())
+# from v6.va_api import VA_Action 
+# def test_1():
+#     print(VA_Action.getPlatform())

@@ -2,7 +2,7 @@ import math
 import cv2
 import numpy as np
 from pytesseract import pytesseract, Output
-from v6.va_image import VA_Image
+from va_image import VA_Image
 #if platform==win
 TESTRECT_EXE=r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 pytesseract.tesseract_cmd = TESTRECT_EXE
