@@ -1,6 +1,6 @@
 from pywinauto import Application
 import pywinauto
-import logging 
+import logging,time
 import pyautogui as pa
 # pywinauto.windows.uia_element_info.UIAElementInfo.use_raw_view_walker = True
 
@@ -19,6 +19,7 @@ class rootApp:
     def startEOApplication(self):
         try:
             self.app=Application(backend="uia").start(rootApp.EO_EXE_PATH)
+            time.sleep(20)
             # self.app=Application(backend="uia").connect(pid=16464, name="Adobe Elements 2022 Organizer")
             rootApp.pid=self.app.process
             self.main_window=self.app.window(name_re=r".*Organizer")
