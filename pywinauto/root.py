@@ -6,7 +6,7 @@ pywinauto.windows.uia_element_info.UIAElementInfo.use_raw_view_walker = True
 
 class rootApp:
     
-    EO_EXE_PATH='C:\Program Files\Adobe\Elements 2022 Organizer\PhotoshopElementsOrganizer.exe'
+    EO_EXE_PATH='C:\Program Files\Adobe\Elements 2023 Organizer\PhotoshopElementsOrganizer.exe'
     pid=None
     
 
