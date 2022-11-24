@@ -1,6 +1,5 @@
 import sys
 sys.path.append('./../EOTest/v6')
-from va_api import VA_Action
 import time,pytest
 import pyautogui as pa
 from action import Action
